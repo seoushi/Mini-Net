@@ -18,6 +18,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <sstream>
 
 
 
@@ -41,12 +42,16 @@ Connection::Connection(int sockfd, sockaddr* sa)
 
 Connection::~Connection()
 {
-    closeConnection();
+    close();
 }
 
 
-bool Connection::makeServer(const char* port)
-{   
+bool Connection::listen(int port)
+{
+    // convert port to string for usage
+    std::stringstream portStr;
+    portStr << port;
+
     // find a suitable address to bind to
     addrinfo hints;
     addrinfo* servinfo;
@@ -57,7 +62,7 @@ bool Connection::makeServer(const char* port)
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    if ((rv = getaddrinfo(NULL, port, &hints, &servinfo)) != 0)
+    if ((rv = getaddrinfo(NULL, portStr.str().c_str(), &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return false;
@@ -108,18 +113,19 @@ bool Connection::makeServer(const char* port)
     }
 
     this->address = "localhost";
-    this->port = atoi(port);
+    this->port = port;
     isAServer = true;
 
     return true;
 }
 
 
-Connection* Connection::acceptConnection()
+Connection* Connection::accept()
 {
-    sockaddr_storage their_addr;
-    socklen_t sin_size = sizeof their_addr;
-    int new_socketfd = accept(sockfd, (sockaddr*)&their_addr, &sin_size);
+    sockaddr_storage theirAddr;
+    socklen_t sin_size = sizeof(theirAddr);
+
+    int new_socketfd = accept(sockfd, (sockaddr*)&theirAddr, sin_size);
 
     if (new_socketfd == -1)
     {
@@ -127,12 +133,16 @@ Connection* Connection::acceptConnection()
         return NULL;
     }
 
-    return new Connection(new_socketfd, (sockaddr*)&their_addr);
+    return new Connection(new_socketfd, (sockaddr*)&theirAddr);
 }
 
 
-bool Connection::connectToServer(const char* address, const char* port)
+bool Connection::connect(const char* address, int port)
 {
+    // convert port to string for usage
+    std::stringstream portStr;
+    portStr << port;
+
     // get list of addresses to try to connect to
     addrinfo hints;
     addrinfo* servinfo;
@@ -141,7 +151,7 @@ bool Connection::connectToServer(const char* address, const char* port)
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    int result = getaddrinfo(address, port, &hints, &servinfo);
+    int result = getaddrinfo(address, portStr.str().c_str(), &hints, &servinfo);
     if(result != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(result));
@@ -180,7 +190,7 @@ bool Connection::connectToServer(const char* address, const char* port)
 
     
     // success!
-    this->port = atoi(port);
+    this->port = port;
     return true;
 }
 
@@ -243,7 +253,7 @@ bool Connection::isIpv6()
     return !isIpv4;
 }
 
-void Connection::closeConnection()
+void Connection::close()
 {
     if(sockfd)
     {
@@ -276,4 +286,24 @@ void Connection::getSocketInfo(sockaddr* sa)
     inet_ntop(sa->sa_family, sa_in, str, sizeof str);
 
     address = std::string(str);
+}
+
+int Connection::accept(int sock, sockaddr* sockAddr, socklen_t sockLength)
+{
+    return accept(sock, sockAddr, sockLength);
+}
+
+int Connection::connect(int sock, sockaddr* sockAddr, socklen_t sockLength)
+{
+    return connect(sock, sockAddr, sockLength);
+}
+
+void Connection::close(int sock, bool phonyParameter)
+{
+    close(sock);
+}
+
+int Connection::listen(int sock, int numBacklogConnections)
+{
+    return listen(sock, numBacklogConnections);
 }

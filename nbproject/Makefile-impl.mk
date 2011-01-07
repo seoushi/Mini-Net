@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=mmost
+PROJECTNAME=Mini-Net
 
 # Active Configuration
 DEFAULTCONF=Debug

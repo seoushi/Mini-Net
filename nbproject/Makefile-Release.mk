@@ -14,11 +14,11 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
-FC=gfortran
-AS=as
+CC=gcc.exe
+CCC=g++.exe
+CXX=g++.exe
+FC=gfortran.exe
+AS=as.exe
 
 # Macros
 CND_PLATFORM=Cygwin_4.x-Windows
@@ -56,11 +56,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/mmost.exe
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/mini-net.exe
 
-dist/Release/Cygwin_4.x-Windows/mmost.exe: ${OBJECTFILES}
+dist/Release/Cygwin_4.x-Windows/mini-net.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mmost ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mini-net ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/ConnectionPool.o: ConnectionPool.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -83,7 +83,7 @@ ${OBJECTDIR}/Server.o: Server.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/Cygwin_4.x-Windows/mmost.exe
+	${RM} dist/Release/Cygwin_4.x-Windows/mini-net.exe
 
 # Subprojects
 .clean-subprojects:

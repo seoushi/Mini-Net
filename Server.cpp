@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     ConnectionPool pool;
 
     Connection server;
-    if(server.makeServer("7777"))
+    if(server.listen(7777))
     {
         std::cout << "Server is now listening on port: " << server.getAddress() << " : " << server.getPort();
 
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
         {
             if(conPtr->isServer())
             {
-                Connection* newCon = conPtr->acceptConnection();
+                Connection* newCon = conPtr->accept();
                 std::cout << "got connection from: " << newCon->getAddress() << " : " << newCon->getPort() << std::endl;
                 pool.add(newCon);
             }

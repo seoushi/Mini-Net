@@ -11,6 +11,7 @@
 #define	CONNECTIONPOOL_H
 
 #include <map>
+#include <time.h>
 
 class ConnectionPool
 {
@@ -36,7 +37,7 @@ class ConnectionPool
 
         // sets the timeout time for polling sockets in microseconds (long int)
         // a negitive number will wait indefinitely
-        void setPollTimeout(__suseconds_t time);
+        void setPollTimeout(suseconds_t time);
 
     private:
 

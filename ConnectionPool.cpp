@@ -77,7 +77,7 @@ Connection* ConnectionPool::getNextReadyConnection()
     return NULL;
 }
 
-void ConnectionPool::setPollTimeout(__suseconds_t time)
+void ConnectionPool::setPollTimeout(suseconds_t time)
 {
     timeout.tv_usec = time;
     timeout.tv_sec = 0;

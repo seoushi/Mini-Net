@@ -29,13 +29,13 @@ class Connection
         ~Connection();
 
         // starts a server on a specified port
-        bool makeServer(const char* port);
+        bool listen(int port);
 
         // accepts a new connection from a server connection
-        Connection* acceptConnection();
+        Connection* accept();
 
         // connects to a remote server
-        bool connectToServer(const char* address, const char* port);
+        bool connect(const char* address, int port);
 
 	// takes in a preallocated buffer and it's size
 	// returns the number of bytes read
@@ -57,12 +57,24 @@ class Connection
         bool isIpv6();
 
         // closes the connection
-        void closeConnection();
+        void close();
 
     private:
 
         // stores the socket information (port and address)
         void getSocketInfo(sockaddr* sa);
+
+        // wrapper arround accept to get arround c naming conflict
+        static int accept(int sock, sockaddr* sockAddr, socklen_t sockLength);
+
+        // wrapper arround connect to get arround c naming conflict
+        static int connect(int sock, sockaddr* sockAddr, socklen_t sockLength);
+
+        // wrapper arround close to get arround c naming conflict
+        static void close(int sock, bool phonyParameter = true);
+
+        // wrapper arround listen to get arround c naming conflict
+        static int listen(int sock, int numBacklogConnections);
 
         int port;
         int numBacklogConnections;

@@ -1,0 +1,22 @@
+Mini-Net is a basic Networking library for C++
+
+It is a lightweight wraper around TCP/IP sockets.
+
+Current Features
+    Creating a server
+    Connecting to a server
+    Sending/Receiving data
+    Connection Pools and polling connections for data
+    
+Planned Stuff
+    Idea of messages 
+        bit-packed data
+        no need to touch lower-level write/read
+    Cleaned up Code with proper docs
+    More than one Example
+    Creation of a static library
+    
+    
+License for this code is BSD. 
+
+If you use it for something or find it useful I'd be interested to know.

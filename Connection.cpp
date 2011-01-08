@@ -21,6 +21,14 @@
 #include <sstream>
 
 
+/// wrappers arround c functions to get arround naming conflicts
+int accept2(int sock, sockaddr* sockAddr, socklen_t sockLength);
+int connect2(int sock, sockaddr* sockAddr, socklen_t sockLength);
+void close2(int sock);
+int listen2(int sock, int numBacklogConnections);
+
+
+
 
 Connection::Connection()
 {
@@ -89,7 +97,7 @@ bool Connection::listen(int port)
 
         if (bind(sockfd, si->ai_addr, si->ai_addrlen) == -1)
         {
-            close(sockfd);
+            close2(sockfd);
             perror("connection: bind");
             continue;
         }
@@ -106,7 +114,7 @@ bool Connection::listen(int port)
 
 
     //start listening
-    if(listen(sockfd, numBacklogConnections) == -1)
+    if(listen2(sockfd, numBacklogConnections) == -1)
     {
         perror("connection: listen");
         return false;
@@ -125,7 +133,7 @@ Connection* Connection::accept()
     sockaddr_storage theirAddr;
     socklen_t sin_size = sizeof(theirAddr);
 
-    int new_socketfd = accept(sockfd, (sockaddr*)&theirAddr, sin_size);
+    int new_socketfd = accept2(sockfd, (sockaddr*)&theirAddr, sin_size);
 
     if (new_socketfd == -1)
     {
@@ -170,9 +178,9 @@ bool Connection::connect(const char* address, int port)
             continue;
         }
 
-        if(connect(sockfd, si->ai_addr, si->ai_addrlen) == -1)
+        if(connect2(sockfd, si->ai_addr, si->ai_addrlen) == -1)
         {
-            close(sockfd);
+            close2(sockfd);
             perror("connect: connect");
             continue;
         }
@@ -257,7 +265,7 @@ void Connection::close()
 {
     if(sockfd)
     {
-        close(sockfd);
+        close2(sockfd);
     }
 
     sockfd = NULL;
@@ -288,22 +296,22 @@ void Connection::getSocketInfo(sockaddr* sa)
     address = std::string(str);
 }
 
-int Connection::accept(int sock, sockaddr* sockAddr, socklen_t sockLength)
+int accept2(int sock, sockaddr* sockAddr, socklen_t sockLength)
 {
-    return accept(sock, sockAddr, sockLength);
+    return accept(sock, sockAddr, &sockLength);
 }
 
-int Connection::connect(int sock, sockaddr* sockAddr, socklen_t sockLength)
+int connect2(int sock, sockaddr* sockAddr, socklen_t sockLength)
 {
     return connect(sock, sockAddr, sockLength);
 }
 
-void Connection::close(int sock, bool phonyParameter)
+void close2(int sock)
 {
     close(sock);
 }
 
-int Connection::listen(int sock, int numBacklogConnections)
+int listen2(int sock, int numBacklogConnections)
 {
     return listen(sock, numBacklogConnections);
 }

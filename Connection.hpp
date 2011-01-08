@@ -64,18 +64,6 @@ class Connection
         // stores the socket information (port and address)
         void getSocketInfo(sockaddr* sa);
 
-        // wrapper arround accept to get arround c naming conflict
-        static int accept(int sock, sockaddr* sockAddr, socklen_t sockLength);
-
-        // wrapper arround connect to get arround c naming conflict
-        static int connect(int sock, sockaddr* sockAddr, socklen_t sockLength);
-
-        // wrapper arround close to get arround c naming conflict
-        static void close(int sock, bool phonyParameter = true);
-
-        // wrapper arround listen to get arround c naming conflict
-        static int listen(int sock, int numBacklogConnections);
-
         int port;
         int numBacklogConnections;
         int sockfd;

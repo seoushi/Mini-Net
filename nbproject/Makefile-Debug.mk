@@ -14,14 +14,14 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug
 CND_DISTDIR=dist
 
@@ -56,10 +56,10 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/mini-net.exe
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/mini-net
 
-dist/Debug/Cygwin_4.x-Windows/mini-net.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/Cygwin_4.x-Windows
+dist/Debug/GNU-Linux-x86/mini-net: ${OBJECTFILES}
+	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mini-net ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/ConnectionPool.o: ConnectionPool.cpp 
@@ -83,7 +83,7 @@ ${OBJECTDIR}/Server.o: Server.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/Cygwin_4.x-Windows/mini-net.exe
+	${RM} dist/Debug/GNU-Linux-x86/mini-net
 
 # Subprojects
 .clean-subprojects:

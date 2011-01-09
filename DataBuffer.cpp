@@ -68,6 +68,13 @@ void DataBuffer::rewindPointer()
 }
 
 
+size_t DataBuffer::spaceLeft()
+{
+    int spaceUsed = ((long)buffer) - bufferPosition;
+    return maxBufferSize - spaceUsed;
+}
+
+
 size_t DataBuffer::size()
 {
     return bufferSize;
@@ -76,7 +83,7 @@ size_t DataBuffer::size()
 
 void* DataBuffer::data()
 {
-    return buffer;
+    return buffer + bufferPosition;
 }
 
 
@@ -87,12 +94,13 @@ void* DataBuffer::data()
 // returns a pointer to the next element
 void* DataBuffer::read(size_t size)
 {
-    if(!buffer || ((bufferPosition + size) > bufferSize))
+
+
+    if(!buffer || (spaceLeft() < size))
     {
-        void* data = (buffer + bufferPosition);
         bufferPosition += size;
 
-        return data;
+        return data();
     }
 
     return NULL;
@@ -211,59 +219,57 @@ std::string DataBuffer::readString()
 ///
 
 
-void DataBuffer::write(void* data, size_t length)
+void DataBuffer::write(void* dataP, size_t length)
 {
     // no buffer? buffer not big enough? resize it
-    if(maxBufferSize < bufferPosition + length)
+    if(spaceLeft() < length)
     {
         resize(bufferPosition + length);
     }
 
-    void* buffPtr = buffer + bufferPosition;
-
-    memcpy(buffPtr, data, length);
+    memcpy(data(), dataP, length);
 
     bufferPosition += length;
 }
 
-void DataBuffer::writeShort(short s)
+void DataBuffer::write(short s)
 {
     write((void*)&s, sizeof(short));
 }
 
 
-void DataBuffer::writeChar(char c)
+void DataBuffer::write(char c)
 {
     write((void*)&c, sizeof(char));
 }
 
 
-void DataBuffer::writeInt(int i)
+void DataBuffer::write(int i)
 {
     write((void*)&i, sizeof(int));
 }
 
 
-void DataBuffer::writeLong(long l)
+void DataBuffer::write(long l)
 {
     write((void*)&l, sizeof(long));
 }
 
 
-void DataBuffer::writeString(std::string s)
+void DataBuffer::write(std::string s)
 {
     write((void*)s.c_str(), s.size());
-    writeChar(0);
+    write((char)0);
 }
 
 
-void DataBuffer::writeFloat(float f)
+void DataBuffer::write(float f)
 {
     write((void*)&f, sizeof(float));
 }
 
 
-void DataBuffer::writeDouble(double d)
+void DataBuffer::write(double d)
 {
     write((void*)&d, sizeof(double));
 }

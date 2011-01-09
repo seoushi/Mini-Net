@@ -31,6 +31,9 @@ class DataBuffer
         // gets the size of the data buffer
         size_t size();
 
+        // returns the ammount of space avialable for writting
+        size_t spaceLeft();
+
         // gets a pointer to the current position in the buffer
         void* data();
 
@@ -74,25 +77,25 @@ class DataBuffer
         void write(void* data, size_t length);
 
         // writes a short
-        void writeShort(short s);
+        void write(short s);
 
         // writes a char
-        void writeChar(char c);
+        void write(char c);
 
         // writes a int
-        void writeInt(int i);
+        void write(int i);
 
         // writes a long
-        void writeLong(long l);
+        void write(long l);
 
         // writes a string with a null terminator
-        void writeString(std::string s);
+        void write(std::string s);
 
         // writes a float
-        void writeFloat(float f);
+        void write(float f);
 
         // writes a double
-        void writeDouble(double d);
+        void write(double d);
 
     private:
 

@@ -7,6 +7,7 @@
 
 #include "DataBuffer.hpp"
 
+#include <string.h>
 #include <malloc.h>
 #include <sstream>
 
@@ -210,43 +211,59 @@ std::string DataBuffer::readString()
 ///
 
 
+void DataBuffer::write(void* data, size_t length)
+{
+    // no buffer? buffer not big enough? resize it
+    if(maxBufferSize < bufferPosition + length)
+    {
+        resize(bufferPosition + length);
+    }
+
+    void* buffPtr = buffer + bufferPosition;
+
+    memcpy(buffPtr, data, length);
+
+    bufferPosition += length;
+}
+
 void DataBuffer::writeShort(short s)
 {
-
+    write((void*)&s, sizeof(short));
 }
 
 
 void DataBuffer::writeChar(char c)
 {
-
+    write((void*)&c, sizeof(char));
 }
 
 
 void DataBuffer::writeInt(int i)
 {
-
+    write((void*)&i, sizeof(int));
 }
 
 
 void DataBuffer::writeLong(long l)
 {
-
+    write((void*)&l, sizeof(long));
 }
 
 
 void DataBuffer::writeString(std::string s)
 {
-
+    write((void*)s.c_str(), s.size());
+    writeChar(0);
 }
 
 
 void DataBuffer::writeFloat(float f)
 {
-
+    write((void*)&f, sizeof(float));
 }
 
 
 void DataBuffer::writeDouble(double d)
 {
-
+    write((void*)&d, sizeof(double));
 }

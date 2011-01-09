@@ -70,6 +70,9 @@ class DataBuffer
         /// size of the buffer as needed
         ///
 
+        // writes a chunk of memory to the buffer
+        void write(void* data, size_t length);
+
         // writes a short
         void writeShort(short s);
 

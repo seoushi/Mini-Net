@@ -7,12 +7,13 @@ Current Features
     Connecting to a server
     Sending/Receiving data
     Connection Pools and polling connections for data
+    Data buffers for easy writing/recieving of data
     
 Planned Stuff
     Idea of messages 
         bit-packed data
         no need to touch lower-level write/read
-    Cleaned up Code with proper docs
+    Clean up Code with proper docs
     More than one Example
     Creation of a static library
     

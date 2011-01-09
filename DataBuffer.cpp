@@ -62,7 +62,7 @@ void DataBuffer::resize(size_t newSize)
 }
 
 
-void DataBuffer::rewindPointer()
+void DataBuffer::rewind()
 {
     bufferPosition = 0;
 }
@@ -70,8 +70,7 @@ void DataBuffer::rewindPointer()
 
 size_t DataBuffer::spaceLeft()
 {
-    int spaceUsed = ((long)buffer) - bufferPosition;
-    return maxBufferSize - spaceUsed;
+    return maxBufferSize - bufferPosition;
 }
 
 
@@ -94,13 +93,12 @@ void* DataBuffer::data()
 // returns a pointer to the next element
 void* DataBuffer::read(size_t size)
 {
-
-
-    if(!buffer || (spaceLeft() < size))
+    if(!buffer || (size < spaceLeft()))
     {
+        void* dat = data();
         bufferPosition += size;
 
-        return data();
+        return dat;
     }
 
     return NULL;
@@ -224,12 +222,13 @@ void DataBuffer::write(void* dataP, size_t length)
     // no buffer? buffer not big enough? resize it
     if(spaceLeft() < length)
     {
-        resize(bufferPosition + length);
+        resize(maxBufferSize - spaceLeft() + length);
     }
 
     memcpy(data(), dataP, length);
 
     bufferPosition += length;
+    bufferSize += length;
 }
 
 void DataBuffer::write(short s)
@@ -258,7 +257,7 @@ void DataBuffer::write(long l)
 
 void DataBuffer::write(std::string s)
 {
-    write((void*)s.c_str(), s.size());
+    write((void*)&s[0], s.length() * sizeof(char));
     write((char)0);
 }
 

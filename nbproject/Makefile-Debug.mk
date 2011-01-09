@@ -35,7 +35,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/ConnectionPool.o \
 	${OBJECTDIR}/Connection.o \
-	${OBJECTDIR}/Server.o \
+	${OBJECTDIR}/Test.o \
 	${OBJECTDIR}/DataBuffer.o
 
 
@@ -73,10 +73,10 @@ ${OBJECTDIR}/Connection.o: Connection.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Connection.o Connection.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
+${OBJECTDIR}/Test.o: Test.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Test.o Test.cpp
 
 ${OBJECTDIR}/DataBuffer.o: DataBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}

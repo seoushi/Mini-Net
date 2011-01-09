@@ -26,7 +26,7 @@ class DataBuffer
         void resize(size_t newSize);
 
         // sets the current data pointer to the begining
-        void rewindPointer();
+        void rewind();
 
         // gets the size of the data buffer
         size_t size();

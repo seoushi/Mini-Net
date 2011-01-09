@@ -21,7 +21,7 @@
       <itemPath>Connection.cpp</itemPath>
       <itemPath>ConnectionPool.cpp</itemPath>
       <itemPath>DataBuffer.cpp</itemPath>
-      <itemPath>Server.cpp</itemPath>
+      <itemPath>Test.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

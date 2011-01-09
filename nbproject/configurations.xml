@@ -7,6 +7,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>Connection.hpp</itemPath>
       <itemPath>ConnectionPool.hpp</itemPath>
+      <itemPath>DataBuffer.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -19,6 +20,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>Connection.cpp</itemPath>
       <itemPath>ConnectionPool.cpp</itemPath>
+      <itemPath>DataBuffer.cpp</itemPath>
       <itemPath>Server.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

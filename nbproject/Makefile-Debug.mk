@@ -35,7 +35,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/ConnectionPool.o \
 	${OBJECTDIR}/Connection.o \
-	${OBJECTDIR}/Server.o
+	${OBJECTDIR}/Server.o \
+	${OBJECTDIR}/DataBuffer.o
 
 
 # C Compiler Flags
@@ -76,6 +77,11 @@ ${OBJECTDIR}/Server.o: Server.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
+
+${OBJECTDIR}/DataBuffer.o: DataBuffer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/DataBuffer.o DataBuffer.cpp
 
 # Subprojects
 .build-subprojects:

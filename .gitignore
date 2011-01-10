@@ -1,3 +1,5 @@
 build/*
 dist/*
 .dep.inc
+samples/DataBufferTest/build/*
+samples/DataBufferTest/dist/*

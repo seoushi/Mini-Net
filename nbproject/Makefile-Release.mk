@@ -65,17 +65,17 @@ dist/Release/Cygwin_4.x-Windows/mini-net.exe: ${OBJECTFILES}
 ${OBJECTDIR}/src/ConnectionPool.o: src/ConnectionPool.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionPool.o src/ConnectionPool.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionPool.o src/ConnectionPool.cpp
 
 ${OBJECTDIR}/src/Connection.o: src/Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
 
 ${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DataBuffer.o src/DataBuffer.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DataBuffer.o src/DataBuffer.cpp
 
 # Subprojects
 .build-subprojects:

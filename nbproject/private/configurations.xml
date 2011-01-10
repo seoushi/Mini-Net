@@ -3,7 +3,7 @@
   <projectmakefile>Makefile</projectmakefile>
   <defaultConf>0</defaultConf>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug" type="3">
       <gizmo_options version="3">
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
@@ -20,6 +20,7 @@
     </conf>
     <conf name="Release" type="1">
       <gizmo_options version="3">
+        <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>

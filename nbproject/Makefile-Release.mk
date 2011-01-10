@@ -33,9 +33,9 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ConnectionPool.o \
-	${OBJECTDIR}/Connection.o \
-	${OBJECTDIR}/Server.o
+	${OBJECTDIR}/src/ConnectionPool.o \
+	${OBJECTDIR}/src/Connection.o \
+	${OBJECTDIR}/src/DataBuffer.o
 
 
 # C Compiler Flags
@@ -62,20 +62,20 @@ dist/Release/Cygwin_4.x-Windows/mini-net.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mini-net ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/ConnectionPool.o: ConnectionPool.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/ConnectionPool.o: src/ConnectionPool.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/ConnectionPool.o ConnectionPool.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionPool.o src/ConnectionPool.cpp
 
-${OBJECTDIR}/Connection.o: Connection.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/Connection.o: src/Connection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Connection.o Connection.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DataBuffer.o src/DataBuffer.cpp
 
 # Subprojects
 .build-subprojects:

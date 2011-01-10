@@ -105,7 +105,7 @@ size_t DataBuffer::size()
 
 void* DataBuffer::data()
 {
-    return buffer + bufferPosition;
+    return (void*)(((char*)buffer) + bufferPosition);
 }
 
 

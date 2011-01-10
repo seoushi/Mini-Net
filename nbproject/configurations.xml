@@ -5,9 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>Connection.hpp</itemPath>
-      <itemPath>ConnectionPool.hpp</itemPath>
-      <itemPath>DataBuffer.hpp</itemPath>
+      <itemPath>include/Connection.hpp</itemPath>
+      <itemPath>include/ConnectionPool.hpp</itemPath>
+      <itemPath>include/DataBuffer.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,10 +18,9 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>Connection.cpp</itemPath>
-      <itemPath>ConnectionPool.cpp</itemPath>
-      <itemPath>DataBuffer.cpp</itemPath>
-      <itemPath>Test.cpp</itemPath>
+      <itemPath>src/Connection.cpp</itemPath>
+      <itemPath>src/ConnectionPool.cpp</itemPath>
+      <itemPath>src/DataBuffer.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -40,13 +39,20 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug" type="3">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
       </compileType>
     </conf>
     <conf name="Release" type="1">

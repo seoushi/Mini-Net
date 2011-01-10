@@ -8,14 +8,15 @@ Current Features
     Sending/Receiving data
     Connection Pools and polling connections for data
     Data buffers for easy writing/recieving of data
+	Sample server project
     
 Planned Stuff
     Idea of messages 
         bit-packed data
         no need to touch lower-level write/read
     Clean up Code with proper docs
-    More than one Example
-    Creation of a static library
+	Sample client project
+    
     
     
 License for this code is BSD. 

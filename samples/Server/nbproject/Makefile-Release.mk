@@ -22,7 +22,7 @@ AS=as.exe
 
 # Macros
 CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Debug
+CND_CONF=Release
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,35 +50,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Release/Cygwin_4.x-Windows/mini-net
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/server.exe
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+dist/Release/Cygwin_4.x-Windows/server.exe: ../../dist/Release/Cygwin_4.x-Windows/mini-net
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Release/Cygwin_4.x-Windows/server.exe: ${OBJECTFILES}
+	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug
+	cd ../.. && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug
-	${RM} dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	${RM} -r build/Release
+	${RM} dist/Release/Cygwin_4.x-Windows/server.exe
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

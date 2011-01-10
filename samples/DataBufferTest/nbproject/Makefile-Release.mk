@@ -50,11 +50,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=../../dist/Release/Cygwin_4.x-Windows/mini-net
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/databuffertest.exe
+
+dist/Release/Cygwin_4.x-Windows/databuffertest.exe: ../../dist/Release/Cygwin_4.x-Windows/mini-net
 
 dist/Release/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
@@ -63,10 +65,11 @@ dist/Release/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../.. && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -75,6 +78,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../.. && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

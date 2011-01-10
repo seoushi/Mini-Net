@@ -1,5 +1,5 @@
 /*
- * File: Test.cpp
+ * File: main.cpp
  *
  * Copyright © 2011, Sean Chapel
  * All rights reserved.
@@ -28,8 +28,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "Connection.hpp"
-#include "ConnectionPool.hpp"
 #include "DataBuffer.hpp"
 
 #include <iostream>

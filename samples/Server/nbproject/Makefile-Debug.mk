@@ -54,13 +54,13 @@ LDLIBSOPTIONS=../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/server.exe
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+dist/Debug/Cygwin_4.x-Windows/server.exe: ../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
+dist/Debug/Cygwin_4.x-Windows/server.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -74,7 +74,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	${RM} dist/Debug/Cygwin_4.x-Windows/server.exe
 
 # Subprojects
 .clean-subprojects:

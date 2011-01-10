@@ -3,3 +3,7 @@ dist/*
 .dep.inc
 samples/DataBufferTest/build/*
 samples/DataBufferTest/dist/*
+samples/DataBufferTest/.dep.inc
+samples/Server/build/*
+samples/Server/dist/*
+samples/Server/.dep.inc

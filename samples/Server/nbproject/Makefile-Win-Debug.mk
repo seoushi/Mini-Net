@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=
+CCC=
+CXX=
+FC=
+AS=
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Release
+CND_PLATFORM=Cygwin_4.x-Linux-x86
+CND_CONF=Win-Debug
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,35 +50,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Release/Cygwin_4.x-Windows/mini-net
+LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/databuffertest.exe
+	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin_4.x-Linux-x86/server
 
-dist/Release/Cygwin_4.x-Windows/databuffertest.exe: ../../dist/Release/Cygwin_4.x-Windows/mini-net
+dist/Win-Debug/Cygwin_4.x-Linux-x86/server: ../../dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
 
-dist/Release/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Win-Debug/Cygwin_4.x-Linux-x86/server: ${OBJECTFILES}
+	${MKDIR} -p dist/Win-Debug/Cygwin_4.x-Linux-x86
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Release
+	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Release
-	${RM} dist/Release/Cygwin_4.x-Windows/databuffertest.exe
+	${RM} -r build/Win-Debug
+	${RM} dist/Win-Debug/Cygwin_4.x-Linux-x86/server
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

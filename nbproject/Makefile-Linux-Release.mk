@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Release
+CND_PLATFORM=GNU-Linux-x86
+CND_CONF=Linux-Release
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -56,11 +56,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/mini-net.exe
+	"${MAKE}"  -f nbproject/Makefile-Linux-Release.mk dist/Linux-Release/GNU-Linux-x86/libmini-net.a
 
-dist/Release/Cygwin_4.x-Windows/mini-net.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mini-net ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Linux-Release/GNU-Linux-x86/libmini-net.a: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux-Release/GNU-Linux-x86
+	${RM} dist/Linux-Release/GNU-Linux-x86/libmini-net.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmini-net.a ${OBJECTFILES} 
+	$(RANLIB) dist/Linux-Release/GNU-Linux-x86/libmini-net.a
 
 ${OBJECTDIR}/src/ConnectionPool.o: src/ConnectionPool.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -82,8 +84,8 @@ ${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Release
-	${RM} dist/Release/Cygwin_4.x-Windows/mini-net.exe
+	${RM} -r build/Linux-Release
+	${RM} dist/Linux-Release/GNU-Linux-x86/libmini-net.a
 
 # Subprojects
 .clean-subprojects:

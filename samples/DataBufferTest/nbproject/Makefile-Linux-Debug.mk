@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Debug
+CND_PLATFORM=GNU-Linux-x86
+CND_CONF=Linux-Debug
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,16 +50,16 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	"${MAKE}"  -f nbproject/Makefile-Linux-Debug.mk dist/Linux-Debug/GNU-Linux-x86/databuffertest
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+dist/Linux-Debug/GNU-Linux-x86/databuffertest: ../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
-dist/Debug/Cygwin_4.x-Windows/databuffertest.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/Cygwin_4.x-Windows
+dist/Linux-Debug/GNU-Linux-x86/databuffertest: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux-Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
@@ -69,16 +69,16 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug
-	${RM} dist/Debug/Cygwin_4.x-Windows/databuffertest.exe
+	${RM} -r build/Linux-Debug
+	${RM} dist/Linux-Debug/GNU-Linux-x86/databuffertest
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

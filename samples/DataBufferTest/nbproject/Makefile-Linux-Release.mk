@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Debug
+CND_PLATFORM=GNU-Linux-x86
+CND_CONF=Linux-Release
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,35 +50,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Linux-Release/GNU-Linux-x86/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/Cygwin_4.x-Windows/server.exe
+	"${MAKE}"  -f nbproject/Makefile-Linux-Release.mk dist/Linux-Release/GNU-Linux-x86/databuffertest
 
-dist/Debug/Cygwin_4.x-Windows/server.exe: ../../dist/Debug/Cygwin_4.x-Windows/libmini-net.a
+dist/Linux-Release/GNU-Linux-x86/databuffertest: ../../dist/Linux-Release/GNU-Linux-x86/libmini-net.a
 
-dist/Debug/Cygwin_4.x-Windows/server.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/Cygwin_4.x-Windows
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Linux-Release/GNU-Linux-x86/databuffertest: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux-Release/GNU-Linux-x86
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug
-	${RM} dist/Debug/Cygwin_4.x-Windows/server.exe
+	${RM} -r build/Linux-Release
+	${RM} dist/Linux-Release/GNU-Linux-x86/databuffertest
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

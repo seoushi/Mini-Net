@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_CONF=Release
+CND_PLATFORM=GNU-Linux-x86
+CND_CONF=Linux-Debug
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,35 +50,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Release/Cygwin_4.x-Windows/mini-net
+LDLIBSOPTIONS=../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/Cygwin_4.x-Windows/server.exe
+	"${MAKE}"  -f nbproject/Makefile-Linux-Debug.mk dist/Linux-Debug/GNU-Linux-x86/server
 
-dist/Release/Cygwin_4.x-Windows/server.exe: ../../dist/Release/Cygwin_4.x-Windows/mini-net
+dist/Linux-Debug/GNU-Linux-x86/server: ../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
-dist/Release/Cygwin_4.x-Windows/server.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/Cygwin_4.x-Windows
+dist/Linux-Debug/GNU-Linux-x86/server: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux-Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Release
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Release
-	${RM} dist/Release/Cygwin_4.x-Windows/server.exe
+	${RM} -r build/Linux-Debug
+	${RM} dist/Linux-Debug/GNU-Linux-x86/server
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

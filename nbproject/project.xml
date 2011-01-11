@@ -14,8 +14,10 @@
                 <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
-                <confElem>Debug</confElem>
-                <confElem>Release</confElem>
+                <confElem>Linux-Debug</confElem>
+                <confElem>Linux-Release</confElem>
+                <confElem>Win-Debug</confElem>
+                <confElem>Win-Release</confElem>
             </confList>
         </data>
     </configuration>

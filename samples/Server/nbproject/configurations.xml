@@ -31,11 +31,11 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Linux-Debug" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
-        <platform>3</platform>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -48,20 +48,80 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../.."
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Linux-Debug"
+                            AC="false"
                             BL="true"
                             WD="../.."
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/Cygwin_4.x-Windows/libmini-net.a">
+                            BC="${MAKE}  -f Makefile CONF=Linux-Debug"
+                            CC="${MAKE}  -f Makefile CONF=Linux-Debug clean"
+                            OP="dist/Linux-Debug/GNU-Linux-x86/libmini-net.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Linux-Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../../include</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../.."
+                            CT="3"
+                            CN="Linux-Release"
+                            AC="false"
+                            BL="true"
+                            WD="../.."
+                            BC="${MAKE}  -f Makefile CONF=Linux-Release"
+                            CC="${MAKE}  -f Makefile CONF=Linux-Release clean"
+                            OP="dist/Linux-Release/GNU-Linux-x86/libmini-net.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Win-Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>Cygwin_4.x|Unknown</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../../include</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../.."
+                            CT="3"
+                            CN="Win-Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../.."
+                            BC="${MAKE}  -f Makefile CONF=Win-Debug"
+                            CC="${MAKE}  -f Makefile CONF=Win-Debug clean"
+                            OP="dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Win-Release" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
@@ -87,14 +147,14 @@
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../.."
-                            CT="1"
-                            CN="Release"
+                            CT="3"
+                            CN="Win-Release"
                             AC="false"
                             BL="true"
                             WD="../.."
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/Cygwin_4.x-Windows/mini-net">
+                            BC="${MAKE}  -f Makefile CONF=Win-Release"
+                            CC="${MAKE}  -f Makefile CONF=Win-Release clean"
+                            OP="dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

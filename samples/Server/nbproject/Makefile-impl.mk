@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=Server
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Linux-Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Linux-Debug Linux-Release Win-Debug Win-Release 
 
 
 # build

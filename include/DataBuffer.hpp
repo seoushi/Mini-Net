@@ -34,125 +34,228 @@
 #include <stddef.h>
 #include <string>
 
+/**
+ * The Data Buffer class holds a chunk of memory to read and write to. Data
+ * Buffers will automatically resize when written to when needed.
+ */
 class DataBuffer
 {
     public:
 
-        // default constructor
+        /**
+         * Default constructor
+         */
         DataBuffer();
 
-        // default destructor
+        /**
+         * Default destructor
+         */
         ~DataBuffer();
 
-        // resizes the data buffer to a given size
-        // if you resize too small data will be lost
+        /**
+         * Resizes the data buffer to a given size.
+         * @param newSize the new size for the buffer
+         */
         void resize(size_t newSize);
 
-        // sets the current data pointer to the begining
+        /**
+         * Sets the current data pointer to the begining of the buffer
+         */
         void rewind();
 
-        // gets the size of the data buffer currently in use
+        /**
+         * Gets the size of the data buffer currently in use
+         * @return the buffers size
+         */
         size_t size();
 
-        // gets the max size the data buffer can hold
+        /**
+         * Gets the max size the data buffer can hold
+         * @return the buffer's max size
+         */
         size_t allocatedSize();
 
-        // returns the ammount of space avialable for writting
+        /**
+         * Gets the space left for writing in the buffer
+         * @return the space left in the buffer
+         */
         size_t spaceLeft();
 
-        // gets a pointer to the current position in the buffer
+        /**
+         * Gets a pointer to the current position in the buffer
+         * @return pointer to the current position in the buffer
+         */
         void* data();
 
 
-        ///
-        /// read functions. All read functions move the 
-        /// data pointer forward by the ammount read
-        ///
+    /***************************************************************************
+     * READ FUNCTIONS
+     *
+     * All read functions move the data pointer forward by the amount read
+     **************************************************************************/
 
-        // returns a pointer to the next element
+
+        /**
+         * Gets a chunk of memory from the buffer
+         * @param size the amount to read
+         * @return the data read
+         */
         void* read(size_t size);
 
-        // reads a short
+        /**
+         * Reads a short from the buffer
+         * @return a short
+         */
         short readShort();
 
-        // reads a char
+        /**
+         * Reads a char from the buffer
+         * @return a char
+         */
         char readChar();
 
-        // reads a int
+        /**
+         * Reads an int from the buffer
+         * @return an int
+         */
         int readInt();
 
-        // reads a long
+        /**
+         * Reads a long long from the buffer
+         * @return a long long
+         */
         long long readLongLong();
 
-        // reads a unsigned short
+        /**
+         * Reads a unsigned short from the buffer
+         * @return a unsigned short
+         */
         unsigned short readUnsignedShort();
 
-        // reads a unsigned char
+        /**
+         * Reads a unsigned char from the buffer
+         * @return a unsigned char
+         */
         unsigned char readUnsignedChar();
 
-        // reads a unsigned int
+        /**
+         * Reads a unsigned int from the buffer
+         * @return a unsigned int
+         */
         unsigned int readUnsignedInt();
 
-        // reads a unsigned long
+        /**
+         * Reads a unsigned long long from the buffer
+         * @return a unsigned long long
+         */
         unsigned long long readUnsignedLongLong();
 
-        // reads a float
+        /**
+         * Reads a float from the buffer
+         * @return a float
+         */
         float readFloat();
 
-        //reads a double
+        /**
+         * Reads a double from the buffer
+         * @return a double
+         */
         double readDouble();
 
-        // reads a string (till a null terminator)
+        /**
+         * Reads a null terminated string from the buffer
+         * @return a std::string
+         */
         std::string readString();
 
 
-        ///
-        /// write functions. write functions will all increase the
-        /// size of the buffer as needed
-        ///
 
-        // writes a chunk of memory to the buffer
+    /***************************************************************************
+     * WRITE FUNCTIONS
+     *
+     * All write functions will increase the size of the buffer as needed
+     **************************************************************************/
+
+
+        /**
+         * Writes a chunk of memory to the buffer
+         * @param data the data to write to the buffer
+         * @param length the length of the data to write
+         */
         void write(void* data, size_t length);
 
-        // writes a short
+        /**
+         * Writes a short to the buffer
+         * @param s the short to write
+         */
         void write(short s);
 
-        // writes a char
+        /**
+         * Writes a char to the buffer
+         * @param c the char to write
+         */
         void write(char c);
 
-        // writes a int
+        /**
+         * Writes an int to the buffer
+         * @param i the int to write
+         */
         void write(int i);
 
-        // writes a long
+        /**
+         * Writes a long long to the buffer
+         * @param l the long long to write
+         */
         void write(long long l);
 
-        // writes a unsigned short
+        /**
+         * Writes a unsigned short to the buffer
+         * @param us the unsigned short to write
+         */
         void write(unsigned short us);
 
-        // writes a unsigned char
+        /**
+         * Writes a unsigned char to the buffer
+         * @param uc the unsigned char to write
+         */
         void write(unsigned char uc);
 
-        // writes a unsigned int
+        /**
+         * Writes a unsigned int to the buffer
+         * @param ui the unsigned int to write
+         */
         void write(unsigned int ui);
 
-        // writes a unsigned long
+        /**
+         * Writes a unsigned long long to the buffer
+         * @param ul the unsigned long long to write
+         */
         void write(unsigned long long ul);
 
-        // writes a string with a null terminator
+        /**
+         * Writes a std::string to the buffer
+         * @param s the string to write
+         */
         void write(std::string s);
 
-        // writes a float
+        /**
+         * Writes a float to the buffer
+         * @param f the float to write
+         */
         void write(float f);
 
-        // writes a double
+        /**
+         * Writes a double to the buffer
+         * @param d the double to write
+         */
         void write(double d);
 
     private:
 
-        void* buffer;           // pointer to the data buffer
-        size_t bufferSize;      // the ammount currently used in the buffer
-        size_t maxBufferSize;   // the size of the allocated buffer
-        size_t bufferPosition;  // the current position in the buffer
+        void* buffer;           /**< pointer to the data buffer               */
+        size_t bufferSize;      /**< the amount currently used in the buffer  */
+        size_t maxBufferSize;   /**< the size of the allocated buffer         */
+        size_t bufferPosition;  /**< the current position in the buffer       */
 };
 
 #endif	/* DATABUFFER_HPP */

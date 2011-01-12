@@ -36,41 +36,64 @@
 #include <map>
 #include <time.h>
 
+/**
+ * The Connection Pool class handles multiple connections allowing you to poll
+ * for the sockets that are ready to be read
+ */
 class ConnectionPool
 {
     public:
-        // default constructor
+        /**
+         * Default constructor
+         */
         ConnectionPool();
 
-        // default destructor
+        /**
+         * Default destructor
+         */
         ~ConnectionPool();
 
-        // adds a connection to the pool
+        /**
+         * Adds a connection to the pool
+         * @param con The connection to add
+         */
         void add(Connection* con);
 
-        // removes a connection from the pool
+        /**
+         * Removes a connection from the pool
+         * @param con The connection to remove
+         */
         void remove(Connection* con);
 
-        // updates the connects and check for sockets that are ready to read data
+        /**
+         * Updates the connectionss and check for sockets that are ready to
+         * read data
+         */
         void pollConnections();
 
-        // gets the next connection that is ready for reading
-        // returns NULL when there are no other ready connections
+        /**
+         * gets the next connection that is ready for reading
+         * @return the next connection or NULL if there are no other connections
+         *   ready to be read
+         */
         Connection* getNextReadyConnection();
 
-        // sets the timeout time for polling sockets in microseconds (long int)
-        // a negitive number will wait indefinitely
+        /**
+         * sets the timeout time for polling sockets in microseconds (long int)
+         * @param time
+         */
         void setPollTimeout(suseconds_t time);
 
     private:
 
-        fd_set pool;
-        fd_set poolCopy;
-        int poolMax;
-        int lastChecked;
-        timeval timeout;
+        fd_set pool;        /**< The select socket set                        */
+        fd_set poolCopy;    /**< A copy of the pool for reading socket states */
+        int poolMax;        /**< The highest socket to read to                */
+        int lastChecked;    /**< The last checked socket                      */
+        timeval timeout;    /**< The timeout for polling sockets              */
 
-        std::map<int, Connection*> connectionTable; // maped from socket to connection
+        std::map<int, Connection*> connectionTable; /**< map from socket to
+                                                     * connection             */
 };
 
 #endif	/* CONNECTIONPOOL_H */

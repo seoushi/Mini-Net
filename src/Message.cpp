@@ -35,7 +35,7 @@ Message::Message()
 {
     length = 0;
     hasReadLength = false;
-    bytesLeft = sizeof(size_t);
+    bytesLeft = sizeof(unsigned short);
     buffer.resize(bytesLeft);
 }
 
@@ -60,7 +60,7 @@ void Message::read(Connection* con)
     // we haven't read the length yet and are done reading the length
     if(!hasReadLength && !bytesLeft)
     {
-        bytesLeft = length = buffer.readSizeT();
+        bytesLeft = length = buffer.readUnsignedShort();
 
         buffer.resize(length);
         buffer.rewind();

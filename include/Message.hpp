@@ -60,8 +60,8 @@ class Message
     private:
 
         bool hasReadLength; // if the length has been determined
-        size_t bytesLeft;   // the bytes left to read
-        size_t length;      // the length of the message to read
+        unsigned short bytesLeft;   // the bytes left to read
+        unsigned short length;      // the length of the message to read
         DataBuffer buffer;  // the databuffer
 };
 

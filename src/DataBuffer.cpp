@@ -148,20 +148,6 @@ short DataBuffer::readShort()
 }
 
 
-size_t DataBuffer::readSizeT()
-{
-    void* data = read(sizeof(size_t));
-
-    if(data)
-    {
-        size_t* st = (size_t*)data;
-        return *st;
-    }
-
-    return 0;
-}
-
-
 char DataBuffer::readChar()
 {
     void* data = read(sizeof(char));
@@ -190,14 +176,70 @@ int DataBuffer::readInt()
 }
 
 
-long DataBuffer::readLong()
+long long DataBuffer::readLongLong()
 {
-    void* data = read(sizeof(long));
+    void* data = read(sizeof(long long));
 
     if(data)
     {
-        long* l = (long*)data;
+        long long* l = (long long*)data;
         return *l;
+    }
+
+    return 0;
+}
+
+
+unsigned short DataBuffer::readUnsignedShort()
+{
+    void* data = read(sizeof(unsigned short));
+
+    if(data)
+    {
+        unsigned short* us = (unsigned short*)data;
+        return *us;
+    }
+
+    return 0;
+}
+
+
+unsigned char DataBuffer::readUnsignedChar()
+{
+    void* data = read(sizeof(unsigned char));
+
+    if(data)
+    {
+        unsigned char* uc = (unsigned char*)data;
+        return *uc;
+    }
+
+    return 0;
+}
+
+
+unsigned int DataBuffer::readUnsignedInt()
+{
+    void* data = read(sizeof(unsigned int));
+
+    if(data)
+    {
+        unsigned int* ui = (unsigned int*)data;
+        return *ui;
+    }
+
+    return 0;
+}
+
+
+unsigned long long DataBuffer::readUnsignedLongLong()
+{
+    void* data = read(sizeof(unsigned long long));
+
+    if(data)
+    {
+        unsigned long long* ul = (unsigned long long*)data;
+        return *ul;
     }
 
     return 0;
@@ -280,12 +322,6 @@ void DataBuffer::write(short s)
 }
 
 
-void DataBuffer::write(size_t st)
-{
-    write((void*)&st, sizeof(size_t));
-}
-
-
 void DataBuffer::write(char c)
 {
     write((void*)&c, sizeof(char));
@@ -298,9 +334,33 @@ void DataBuffer::write(int i)
 }
 
 
-void DataBuffer::write(long l)
+void DataBuffer::write(long long l)
 {
-    write((void*)&l, sizeof(long));
+    write((void*)&l, sizeof(long long));
+}
+
+
+void DataBuffer::write(unsigned short us)
+{
+    write((void*)&us, sizeof(unsigned short));
+}
+
+
+void DataBuffer::write(unsigned char uc)
+{
+    write((void*)&uc, sizeof(unsigned char));
+}
+
+
+void DataBuffer::write(unsigned int ui)
+{
+    write((void*)&ui, sizeof(unsigned int));
+}
+
+
+void DataBuffer::write(unsigned long long ul)
+{
+    write((void*)&ul, sizeof(unsigned long long));
 }
 
 

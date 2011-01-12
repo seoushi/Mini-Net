@@ -104,7 +104,7 @@
     <conf name="Win-Debug" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin_4.x|Unknown</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -134,7 +134,7 @@
     <conf name="Win-Release" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin_4.x|Unknown</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <platform>3</platform>
       </toolsSet>
       <compileType>

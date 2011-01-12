@@ -75,9 +75,6 @@ class DataBuffer
         // reads a short
         short readShort();
 
-        // reads a size_t
-        size_t readSizeT();
-
         // reads a char
         char readChar();
 
@@ -85,7 +82,19 @@ class DataBuffer
         int readInt();
 
         // reads a long
-        long readLong();
+        long long readLongLong();
+
+        // reads a unsigned short
+        unsigned short readUnsignedShort();
+
+        // reads a unsigned char
+        unsigned char readUnsignedChar();
+
+        // reads a unsigned int
+        unsigned int readUnsignedInt();
+
+        // reads a unsigned long
+        unsigned long long readUnsignedLongLong();
 
         // reads a float
         float readFloat();
@@ -108,9 +117,6 @@ class DataBuffer
         // writes a short
         void write(short s);
 
-        // write size_t
-        void write(size_t st);
-
         // writes a char
         void write(char c);
 
@@ -118,7 +124,19 @@ class DataBuffer
         void write(int i);
 
         // writes a long
-        void write(long l);
+        void write(long long l);
+
+        // writes a unsigned short
+        void write(unsigned short us);
+
+        // writes a unsigned char
+        void write(unsigned char uc);
+
+        // writes a unsigned int
+        void write(unsigned int ui);
+
+        // writes a unsigned long
+        void write(unsigned long long ul);
 
         // writes a string with a null terminator
         void write(std::string s);

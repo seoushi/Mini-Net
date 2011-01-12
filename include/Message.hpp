@@ -1,6 +1,6 @@
-/* 
- * File:   ConnectionPool.hpp
- * 
+/*
+ * File:   Message.hpp
+ *
  * Copyright © 2011, Sean Chapel
  * All rights reserved.
  *
@@ -28,50 +28,42 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "DataBuffer.hpp"
 #include "Connection.hpp"
 
-#ifndef CONNECTIONPOOL_H
-#define	CONNECTIONPOOL_H
+#ifndef MESSAGE_H
+#define	MESSAGE_H
 
-#include <map>
-#include <time.h>
 
-class ConnectionPool
+class Message
 {
     public:
+
         // default constructor
-        ConnectionPool();
+        Message();
 
         // default destructor
-        ~ConnectionPool();
+        ~Message();
 
-        // adds a connection to the pool
-        void add(Connection* con);
+        // reads data from a connection
+        void read(Connection* con);
 
-        // removes a connection from the pool
-        void remove(Connection* con);
+        // tells if the message has read all of the data needed
+        bool isComplete();
 
-        // updates the connects and check for sockets that are ready to read data
-        void pollConnections();
+        // gets the data buffer
+        DataBuffer* getData();
 
-        // gets the next connection that is ready for reading
-        // returns NULL when there are no other ready connections
-        Connection* getNextReadyConnection();
-
-        // sets the timeout time for polling sockets in microseconds (long int)
-        // a negitive number will wait indefinitely
-        void setPollTimeout(suseconds_t time);
+        // gets the message length
+        size_t getLength();
 
     private:
 
-        fd_set pool;
-        fd_set poolCopy;
-        int poolMax;
-        int lastChecked;
-        timeval timeout;
-
-        std::map<int, Connection*> connectionTable; // maped from socket to connection
+        bool hasReadLength; // if the length has been determined
+        size_t bytesLeft;   // the bytes left to read
+        size_t length;      // the length of the message to read
+        DataBuffer buffer;  // the databuffer
 };
 
-#endif	/* CONNECTIONPOOL_H */
+#endif	/* MESSAGE_H */
 

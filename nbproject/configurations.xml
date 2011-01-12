@@ -8,6 +8,7 @@
       <itemPath>include/Connection.hpp</itemPath>
       <itemPath>include/ConnectionPool.hpp</itemPath>
       <itemPath>include/DataBuffer.hpp</itemPath>
+      <itemPath>include/Message.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -21,6 +22,7 @@
       <itemPath>src/Connection.cpp</itemPath>
       <itemPath>src/ConnectionPool.cpp</itemPath>
       <itemPath>src/DataBuffer.cpp</itemPath>
+      <itemPath>src/Message.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -84,8 +86,8 @@
     <conf name="Win-Debug" type="3">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin_4.x|Unknown</compilerSet>
-        <platform>2</platform>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -100,7 +102,7 @@
     <conf name="Win-Release" type="3">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin_4.x|Unknown</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <platform>3</platform>
       </toolsSet>
       <compileType>

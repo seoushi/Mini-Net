@@ -1,6 +1,6 @@
-/* 
- * File:   ConnectionPool.hpp
- * 
+/*
+ * File:   Message.cpp
+ *
  * Copyright © 2011, Sean Chapel
  * All rights reserved.
  *
@@ -28,50 +28,67 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "Connection.hpp"
+#include "Message.hpp"
 
-#ifndef CONNECTIONPOOL_H
-#define	CONNECTIONPOOL_H
 
-#include <map>
-#include <time.h>
-
-class ConnectionPool
+Message::Message()
 {
-    public:
-        // default constructor
-        ConnectionPool();
+    length = 0;
+    hasReadLength = false;
+    bytesLeft = sizeof(size_t);
+    buffer.resize(bytesLeft);
+}
 
-        // default destructor
-        ~ConnectionPool();
 
-        // adds a connection to the pool
-        void add(Connection* con);
+Message::~Message()
+{
+}
 
-        // removes a connection from the pool
-        void remove(Connection* con);
 
-        // updates the connects and check for sockets that are ready to read data
-        void pollConnections();
+void Message::read(Connection* con)
+{
+    // don't read if we don't need to
+    if(bytesLeft == 0)
+    {
+        return;
+    }
 
-        // gets the next connection that is ready for reading
-        // returns NULL when there are no other ready connections
-        Connection* getNextReadyConnection();
+    // try to read as much as we need from the connection
+    bytesLeft -= con->read((char*)buffer.data(), bytesLeft);
 
-        // sets the timeout time for polling sockets in microseconds (long int)
-        // a negitive number will wait indefinitely
-        void setPollTimeout(suseconds_t time);
 
-    private:
+    // we haven't read the length yet and are done reading the length
+    if(!hasReadLength && !bytesLeft)
+    {
+        bytesLeft = length = buffer.readSizeT();
 
-        fd_set pool;
-        fd_set poolCopy;
-        int poolMax;
-        int lastChecked;
-        timeval timeout;
+        buffer.resize(length);
+        buffer.rewind();
 
-        std::map<int, Connection*> connectionTable; // maped from socket to connection
-};
+        hasReadLength = true;
+    }
+}
 
-#endif	/* CONNECTIONPOOL_H */
+ 
+bool Message::isComplete()
+{
+    // if the length hasn't been read or the buffer has some reading to do
+    if(!hasReadLength || bytesLeft)
+    {
+        return false;
+    }
 
+    return true;
+}
+
+
+DataBuffer* Message::getData()
+{
+    return &buffer;
+}
+
+
+size_t Message::getLength()
+{
+    return length;
+}

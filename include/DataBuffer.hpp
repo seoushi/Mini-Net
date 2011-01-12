@@ -51,8 +51,11 @@ class DataBuffer
         // sets the current data pointer to the begining
         void rewind();
 
-        // gets the size of the data buffer
+        // gets the size of the data buffer currently in use
         size_t size();
+
+        // gets the max size the data buffer can hold
+        size_t allocatedSize();
 
         // returns the ammount of space avialable for writting
         size_t spaceLeft();
@@ -71,6 +74,9 @@ class DataBuffer
 
         // reads a short
         short readShort();
+
+        // reads a size_t
+        size_t readSizeT();
 
         // reads a char
         char readChar();
@@ -101,6 +107,9 @@ class DataBuffer
 
         // writes a short
         void write(short s);
+
+        // write size_t
+        void write(size_t st);
 
         // writes a char
         void write(char c);

@@ -14,14 +14,14 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=
-CCC=
-CXX=
-FC=
-AS=
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Linux-x86
+CND_PLATFORM=Cygwin-Windows
 CND_CONF=Win-Debug
 CND_DISTDIR=dist
 
@@ -35,6 +35,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/ConnectionPool.o \
 	${OBJECTDIR}/src/Connection.o \
+	${OBJECTDIR}/src/Message.o \
 	${OBJECTDIR}/src/DataBuffer.o
 
 
@@ -56,13 +57,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
-dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a: ${OBJECTFILES}
-	${MKDIR} -p dist/Win-Debug/Cygwin_4.x-Linux-x86
-	${RM} dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+dist/Win-Debug/Cygwin-Windows/libmini-net.a: ${OBJECTFILES}
+	${MKDIR} -p dist/Win-Debug/Cygwin-Windows
+	${RM} dist/Win-Debug/Cygwin-Windows/libmini-net.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmini-net.a ${OBJECTFILES} 
-	$(RANLIB) dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+	$(RANLIB) dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
 ${OBJECTDIR}/src/ConnectionPool.o: src/ConnectionPool.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -73,6 +74,11 @@ ${OBJECTDIR}/src/Connection.o: src/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
+
+${OBJECTDIR}/src/Message.o: src/Message.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Message.o src/Message.cpp
 
 ${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -85,7 +91,7 @@ ${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Win-Debug
-	${RM} dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+	${RM} dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
 # Subprojects
 .clean-subprojects:

@@ -1,5 +1,5 @@
 /* 
- * File:   Connection.h
+ * File:   Connection.hpp
  *
  * Copyright © 2011, Sean Chapel
  * All rights reserved.

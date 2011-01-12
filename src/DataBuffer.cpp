@@ -103,6 +103,12 @@ size_t DataBuffer::size()
 }
 
 
+size_t DataBuffer::allocatedSize()
+{
+    return maxBufferSize;
+}
+
+
 void* DataBuffer::data()
 {
     return (void*)(((char*)buffer) + bufferPosition);
@@ -136,6 +142,20 @@ short DataBuffer::readShort()
     {
         short* s = (short*)data;
         return *s;
+    }
+
+    return 0;
+}
+
+
+size_t DataBuffer::readSizeT()
+{
+    void* data = read(sizeof(size_t));
+
+    if(data)
+    {
+        size_t* st = (size_t*)data;
+        return *st;
     }
 
     return 0;
@@ -257,6 +277,12 @@ void DataBuffer::write(void* dataP, size_t length)
 void DataBuffer::write(short s)
 {
     write((void*)&s, sizeof(short));
+}
+
+
+void DataBuffer::write(size_t st)
+{
+    write((void*)&st, sizeof(size_t));
 }
 
 

@@ -9,13 +9,11 @@ Current Features
     Connection Pools and polling connections for data
     Data buffers for easy writing/recieving of data
 	Sample server project
+	Messages for combining data buffers and connections
+	Fully documented via Doxygen
     
 Planned Stuff
-    Idea of messages 
-        bit-packed data
-        no need to touch lower-level write/read
-    Clean up Code with proper docs
-	Sample client project
+	Sample client and server using all features
     
     
     

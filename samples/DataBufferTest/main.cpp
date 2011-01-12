@@ -35,83 +35,106 @@
 int testServer();
 int testDataBuffer();
 
-int main(int argc, char** argv)
+bool doWriteTest(DataBuffer* buffer)
 {
-    int numTests = 2;
-    int testsPassed = 0;
-
-    DataBuffer buffer;
     size_t bufferSize = 0;
-
 
     // Do write/size testing
     std::cout << "writing: char 'a'" << std::endl;
-    buffer.write('a');
+    buffer->write('a');
     bufferSize += sizeof(char);
 
     std::cout << "writing: int '2'" << std::endl;
-    buffer.write((int)2);
+    buffer->write((int)2);
     bufferSize += sizeof(int);
 
     std::cout << "writing: long '3'" << std::endl;
-    buffer.write((long)3);
-    bufferSize += sizeof(long);
+    buffer->write((long long)3);
+    bufferSize += sizeof(long long);
 
     std::cout << "writing: float '4.0f'" << std::endl;
-    buffer.write((float)4.0f);
+    buffer->write((float)4.0f);
     bufferSize += sizeof(float);
 
     std::cout << "writing: double '5.0f'" << std::endl;
-    buffer.write((double)5.0f);
+    buffer->write((double)5.0f);
     bufferSize += sizeof(double);
 
     std::cout << "writing: short '6'" << std::endl;
-    buffer.write((short)6);
+    buffer->write((short)6);
     bufferSize += sizeof(short);
 
+    std::cout << "writing: unsigned char 200" << std::endl;
+    buffer->write((unsigned char)200);
+    bufferSize += sizeof(unsigned char);
+
+    std::cout << "writing: unsigned int 8" << std::endl;
+    buffer->write((unsigned int)8);
+    bufferSize += sizeof(unsigned int);
+
+    std::cout << "writing: unsigned long 9" << std::endl;
+    buffer->write((unsigned long long)9);
+    bufferSize += sizeof(long long);
+
+    std::cout << "writing: unsigned short '10'" << std::endl;
+    buffer->write((unsigned short)10);
+    bufferSize += sizeof(unsigned short);
+
     std::cout << "writing: string 'testing a string'" << std::endl;
-    buffer.write(std::string("testing a string"));
+    buffer->write(std::string("testing a string"));
     bufferSize += sizeof(char) * 17; // string + null character
 
 
     std::cout << "buffer size should be: " << bufferSize << std::endl;
-    std::cout << "buffer size is: " << buffer.size() << std::endl;
-    if(buffer.size() == bufferSize)
+    std::cout << "buffer size is: " << buffer->size() << std::endl;
+    
+    if(buffer->size() == bufferSize)
     {
         std::cout << "size test: [PASSED]" << std::endl;
-        testsPassed++;
+        return true;
     }
-    else
-    {
-        std::cout << "size test: [FAILED]" << std::endl;
-    }
+    
+    std::cout << "size test: [FAILED]" << std::endl;
 
-    std::cout << std::endl << std::endl;
-
+    return false;
+}
 
 
-    // do reading test
-    buffer.rewind();
-
-    char c = buffer.readChar();
+bool doReadTest(DataBuffer* buffer)
+{
+    char c = buffer->readChar();
     std::cout << "read char: 'a' == '" << c << "'" << std::endl;
 
-    int i = buffer.readInt();
+    int i = buffer->readInt();
     std::cout << "read int: 2 == " << i << std::endl;
 
-    long l = buffer.readLong();
+    long long l = buffer->readLongLong();
     std::cout << "read long: 3 == " << l << std::endl;
 
-    float f = buffer.readFloat();
+    float f = buffer->readFloat();
     std::cout << "read float: 4.0f == " << f << std::endl;
 
-    double d = buffer.readDouble();
+    double d = buffer->readDouble();
     std::cout << "read double: 5.0f == " << d << std::endl;
 
-    short s = buffer.readShort();
+    short s = buffer->readShort();
     std::cout << "read short: 6 == " << s << std::endl;
 
-    std::string str = buffer.readString();
+
+
+    unsigned char uc = buffer->readUnsignedChar();
+    std::cout << "read unsigned char: 200 == " << uc << std::endl;
+
+    unsigned int ui = buffer->readUnsignedInt();
+    std::cout << "read unsigned int: 8 == " << ui << std::endl;
+
+    unsigned long long ul = buffer->readUnsignedLongLong();
+    std::cout << "read unsigned long: 9 == " << ul << std::endl;
+
+    unsigned short us = buffer->readUnsignedShort();
+    std::cout << "read unsigned short: 10 == " << us << std::endl;
+
+    std::string str = buffer->readString();
     std::cout << "read string: 'testing a string' == '" << str << "'" << std::endl;
 
     if((c == 'a') &&
@@ -120,19 +143,43 @@ int main(int argc, char** argv)
        (f == 4.0f) &&
        (d == 5.0f) &&
        (s == 6) &&
+       (uc == 200) &&
+       (ui == 8) &&
+       (ul == 9) &&
+       (us == 10) &&
        (str == std::string("testing a string")))
     {
         std::cout << "content test: [PASSED]" << std::endl;
+        return true;
+    }
+
+    std::cout << "content test: [FAILED]" << std::endl;
+
+    return false;
+}
+
+
+int main(int argc, char** argv)
+{
+    int numTests = 2;
+    int testsPassed = 0;
+
+    DataBuffer buffer;
+
+    if(doWriteTest(&buffer))
+    {
         testsPassed++;
     }
-    else
-    {
-        std::cout << "content test: [FAILED]" << std::endl;
-    }
-
 
     std::cout << std::endl << std::endl;
+    buffer.rewind();
 
+    if(doReadTest(&buffer))
+    {
+        testsPassed++;
+    }
+
+    std::cout << std::endl << std::endl;
     std::cout << "Passed " << testsPassed << " test and failed " << numTests - testsPassed << std::endl;
 
 

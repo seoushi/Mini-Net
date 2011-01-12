@@ -50,13 +50,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Win-Release/Cygwin-Windows/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Win-Release.mk dist/Win-Release/Cygwin-Windows/databuffertest.exe
 
-dist/Win-Release/Cygwin-Windows/databuffertest.exe: ../../dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a
+dist/Win-Release/Cygwin-Windows/databuffertest.exe: ../../dist/Win-Release/Cygwin-Windows/libmini-net.a
 
 dist/Win-Release/Cygwin-Windows/databuffertest.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Win-Release/Cygwin-Windows

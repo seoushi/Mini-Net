@@ -93,7 +93,7 @@ bool Connection::listen(int port)
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    if ((rv = getaddrinfo(NULL, portStr.str().c_str(), &hints, &servinfo)) != 0)
+    if((rv = getaddrinfo(NULL, portStr.str().c_str(), &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return false;
@@ -103,22 +103,25 @@ bool Connection::listen(int port)
     // bind to the first available address
     addrinfo* si;
     int yes = 1;
+    int result;
 
     for(si = servinfo; si != NULL; si = si->ai_next)
     {
-        if ((sockfd = socket(si->ai_family, si->ai_socktype, si->ai_protocol)) == -1)
+        sockfd = socket(si->ai_family, si->ai_socktype, si->ai_protocol);
+        if(sockfd == -1)
         {
             perror("connection: socket");
             continue;
         }
 
-        if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1)
+        result =setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+        if(result == -1)
         {
             perror("connection: setsockopt");
             return false;
         }
 
-        if (bind(sockfd, si->ai_addr, si->ai_addrlen) == -1)
+        if(bind(sockfd, si->ai_addr, si->ai_addrlen) == -1)
         {
             close2(sockfd);
             perror("connection: bind");
@@ -127,7 +130,7 @@ bool Connection::listen(int port)
         break;
     }
 
-    if (si == NULL)
+    if(si == NULL)
     {
         fprintf(stderr, "connection: failed to bind\n");
         return false;
@@ -158,7 +161,7 @@ Connection* Connection::accept()
 
     int new_socketfd = accept2(sockfd, (sockaddr*)&theirAddr, sin_size);
 
-    if (new_socketfd == -1)
+    if(new_socketfd == -1)
     {
         perror("acceptConnection");
         return NULL;
@@ -195,7 +198,8 @@ bool Connection::connect(const char* address, int port)
 
     for(si = servinfo; si != NULL; si = si->ai_next)
     {
-        if((sockfd = socket(si->ai_family, si->ai_socktype, si->ai_protocol)) == -1)
+        sockfd = socket(si->ai_family, si->ai_socktype, si->ai_protocol);
+        if(sockfd == -1)
         {
             perror("connect: socket");
             continue;
@@ -212,7 +216,7 @@ bool Connection::connect(const char* address, int port)
     }
     
 
-    if (si == NULL) {
+    if(si == NULL) {
         fprintf(stderr, "connect: failed to connect\n");
         return false;
     }
@@ -249,7 +253,7 @@ bool Connection::write(const char* data, int length)
     while(sent < length)
     {
         n = send(sockfd, data + sent, bytesleft, 0);
-        if (n == -1)
+        if(n == -1)
         {
             perror("write");
             return false;
@@ -301,7 +305,7 @@ void Connection::getSocketInfo(sockaddr* sa)
 
     void* sa_in;
 
-    if (sa->sa_family == AF_INET)
+    if(sa->sa_family == AF_INET)
     {
         isIpv4 = true;
         sa_in = &((sockaddr_in*)sa)->sin_addr;

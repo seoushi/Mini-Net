@@ -34,35 +34,56 @@
 #ifndef MESSAGE_H
 #define	MESSAGE_H
 
-
+/**
+ * The Message class bridges information from the DataBuffer and Connection
+ * classes. The Message class first reads the length of the message and then
+ * populates the data. When the Message is populated to it's length it doesn't
+ * read any more and is marked as complete.
+ */
 class Message
 {
     public:
 
-        // default constructor
+        /**
+         * Default constructor
+         */
         Message();
 
-        // default destructor
+        /**
+         * Default destructor
+         */
         ~Message();
 
-        // reads data from a connection
+        /**
+         * Reads data from a connection
+         * @param con the connection to read data from
+         */
         void read(Connection* con);
 
-        // tells if the message has read all of the data needed
+        /**
+         * Tells if the message has read all of the data needed
+         * @return true if the message message has its data otherwise false
+         */
         bool isComplete();
 
-        // gets the data buffer
+        /**
+         * Gets the data from the buffer
+         * @return the buffer's data
+         */
         DataBuffer* getData();
 
-        // gets the message length
+        /**
+         * Gets the length of the message
+         * @return the message length
+         */
         size_t getLength();
 
     private:
 
-        bool hasReadLength; // if the length has been determined
-        unsigned short bytesLeft;   // the bytes left to read
-        unsigned short length;      // the length of the message to read
-        DataBuffer buffer;  // the databuffer
+        bool hasReadLength;         /**< If the msg length has been determined*/
+        unsigned short bytesLeft;   /**< The bytes left to read               */
+        unsigned short length;      /**< The length of the message to read    */
+        DataBuffer buffer;          /**< The databuffer to store the data     */
 };
 
 #endif	/* MESSAGE_H */

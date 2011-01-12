@@ -36,63 +36,114 @@ class ConnectionPool;
 #include <string>
 #include <netdb.h>
 
+/**
+ * The Connection class abstracts out the low level implementation for TCP/IP
+ * sockets. Creates/connects to servers, reads/writes data.
+ */
 class Connection
 {
     friend class ConnectionPool;
 
     public:
 
-        // default constructor
+        /**
+         *  Default constructor
+         */
         Connection();
 
-        // constructor that uses an existing connection
+        /**
+         * Constructor that uses an existing connection.
+         * @param sockfd the socket
+         * @param sa the socket address info
+         */
         Connection(int sockfd, sockaddr* sa);
 
-        // default destructor
+        /**
+         *  Default destructor
+         */
         ~Connection();
 
-        // starts a server on a specified port
+        /**
+         * Starts a server on a specified port
+         * @param port the port to use
+         * @return true if succeeded otherwise false
+         */
         bool listen(int port);
 
-        // accepts a new connection from a server connection
+        /**
+         * Accepts a new connection from a server connection
+         * @return the new connection accepted
+         */
         Connection* accept();
 
-        // connects to a remote server
+        /**
+         * Connects to a remote server
+         * @param address the address of the server
+         * @param port the port of the server
+         * @return true if connection succeeded otherwise false
+         */
         bool connect(const char* address, int port);
 
-	// takes in a preallocated buffer and it's size
-	// returns the number of bytes read
+        /**
+         * Takes in a preallocated buffer and it's size
+         * @param buffer the buffer to put the data into
+         * @param bufferSize the size of the buffer
+         * @return the number of bytes read
+         */
         int read(char* buffer, int bufferSize);
 
-	// writes the data to the connection
+        /**
+         * Writes the data to the connection
+         * @param data the data to write
+         * @param length the length of the data
+         * @return true if write succeeded otherwise false
+         */
         bool write(const char* data, int length);
 
-        // returns if the connection is a server or not
+        /**
+         * Is the connection a server?
+         * @return if the connection is a server
+         */
 	bool isServer();
 
-        // gets the address of the connection
+        /**
+         * Gets the address of the connection
+         * @return the address of the connection
+         */
         std::string getAddress();
 
-        // gets the port of the connection
+        /**
+         * Gets the port of the connection
+         * @return the port of the connection
+         */
         int getPort();
 
-        // returns if the connection is over IPv6, otherwise it's IPv4
+        /**
+         * Is the connection over IPv6?
+         * @return True if the connection is IPv6 and false for IPv4
+         */
         bool isIpv6();
 
-        // closes the connection
+        /**
+         * Closes the connection
+         */
         void close();
 
     private:
 
-        // stores the socket information (port and address)
+        /**
+         * Gets the address and port from a connection and stores it
+         * @param sa the socket address info
+         */
         void getSocketInfo(sockaddr* sa);
 
-        int port;
-        int numBacklogConnections;
-        int sockfd;
-	bool isAServer;
-        bool isIpv4;
-        std::string address;
+        int port;                   /**< The Port of the connection           */
+        int numBacklogConnections;  /**< In a server the number of connections
+                                     that can be waiting for an accept        */
+        int sockfd;                 /**< The connection's socket              */
+	bool isAServer;             /**< Is the connection a server?          */
+        bool isIpv4;                /**< Is the connection IPv4?              */
+        std::string address;        /**< The address of the connection        */
 };
 
 #endif	/* CONNECTION_H */

@@ -102,11 +102,18 @@ void Server::update()
                 msg = itr->second;
             }
 
+            size_t previousSize = msg->getData()->allocatedSize();
+
             // read message data
             msg->read(conPtr);
 
-            // if we read no data they have been disconnected!
-            // we need to check for this
+
+            // if we read no data they have been disconnected
+            if(previousSize == msg->getData()->allocatedSize())
+            {
+                onDisconnect(conPtr);
+            }
+
 
             // if the message has been fully received
             if(msg->isComplete())
@@ -119,9 +126,9 @@ void Server::update()
     }
 }
 
-void Server::onMessage(Connection* con, Message* msg)
+void Server::onMessage(Connection* c, Message* msg)
 {
-    // do something
+    std::cout << "got Message from: " << c->getAddress() << " : " << c->getPort() << " with length of " << msg->getLength() << std::endl;
 
     delete msg;
 }
@@ -135,6 +142,7 @@ void Server::onDisconnect(Connection* c)
 {
     std::cout << "disconnection from: " << c->getAddress() << " : " << c->getPort() << std::endl;
 
+    
     // clean up the message box
     std::map<Connection*, Message*>::iterator itr = msgBox.find(c);
 

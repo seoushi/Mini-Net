@@ -17,11 +17,11 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin-Windows
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Win-Debug
 CND_DISTDIR=dist
 
@@ -54,12 +54,12 @@ LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin-Windows/databuffertest.exe
+	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/GNU-Linux-x86/databuffertest
 
-dist/Win-Debug/Cygwin-Windows/databuffertest.exe: ../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
+dist/Win-Debug/GNU-Linux-x86/databuffertest: ../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
-dist/Win-Debug/Cygwin-Windows/databuffertest.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Win-Debug/Cygwin-Windows
+dist/Win-Debug/GNU-Linux-x86/databuffertest: ${OBJECTFILES}
+	${MKDIR} -p dist/Win-Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/databuffertest ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
@@ -74,7 +74,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Win-Debug
-	${RM} dist/Win-Debug/Cygwin-Windows/databuffertest.exe
+	${RM} dist/Win-Debug/GNU-Linux-x86/databuffertest
 
 # Subprojects
 .clean-subprojects:

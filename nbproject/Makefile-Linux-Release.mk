@@ -35,6 +35,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/ConnectionPool.o \
 	${OBJECTDIR}/src/Connection.o \
+	${OBJECTDIR}/src/Message.o \
 	${OBJECTDIR}/src/DataBuffer.o
 
 
@@ -73,6 +74,11 @@ ${OBJECTDIR}/src/Connection.o: src/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
+
+${OBJECTDIR}/src/Message.o: src/Message.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Message.o src/Message.cpp
 
 ${OBJECTDIR}/src/DataBuffer.o: src/DataBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

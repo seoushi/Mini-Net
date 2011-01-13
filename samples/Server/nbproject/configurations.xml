@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Server.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,6 +16,7 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Server.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -95,7 +97,7 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>Cygwin|Cygwin</compilerSet>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -114,7 +116,7 @@
                             WD="../.."
                             BC="${MAKE}  -f Makefile CONF=Win-Debug"
                             CC="${MAKE}  -f Makefile CONF=Win-Debug clean"
-                            OP="dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a">
+                            OP="dist/Win-Debug/Cygwin-Windows/libmini-net.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -154,7 +156,7 @@
                             WD="../.."
                             BC="${MAKE}  -f Makefile CONF=Win-Release"
                             CC="${MAKE}  -f Makefile CONF=Win-Release clean"
-                            OP="dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a">
+                            OP="dist/Win-Release/Cygwin-Windows/libmini-net.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

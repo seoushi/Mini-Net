@@ -14,14 +14,14 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=
-CCC=
-CXX=
-FC=
-AS=
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
+AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Linux-x86
+CND_PLATFORM=Cygwin-Windows
 CND_CONF=Win-Debug
 CND_DISTDIR=dist
 
@@ -33,7 +33,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/Server.o
 
 
 # C Compiler Flags
@@ -50,22 +51,27 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin_4.x-Linux-x86/server
+	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/Cygwin-Windows/server.exe
 
-dist/Win-Debug/Cygwin_4.x-Linux-x86/server: ../../dist/Win-Debug/Cygwin_4.x-Linux-x86/libmini-net.a
+dist/Win-Debug/Cygwin-Windows/server.exe: ../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
 
-dist/Win-Debug/Cygwin_4.x-Linux-x86/server: ${OBJECTFILES}
-	${MKDIR} -p dist/Win-Debug/Cygwin_4.x-Linux-x86
+dist/Win-Debug/Cygwin-Windows/server.exe: ${OBJECTFILES}
+	${MKDIR} -p dist/Win-Debug/Cygwin-Windows
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/Server.o: Server.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
 
 # Subprojects
 .build-subprojects:
@@ -74,7 +80,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Win-Debug
-	${RM} dist/Win-Debug/Cygwin_4.x-Linux-x86/server
+	${RM} dist/Win-Debug/Cygwin-Windows/server.exe
 
 # Subprojects
 .clean-subprojects:

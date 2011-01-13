@@ -33,7 +33,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/Server.o
 
 
 # C Compiler Flags
@@ -50,13 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Win-Release/Cygwin-Windows/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Win-Release.mk dist/Win-Release/Cygwin-Windows/server.exe
 
-dist/Win-Release/Cygwin-Windows/server.exe: ../../dist/Win-Release/Cygwin_4.x-Windows/libmini-net.a
+dist/Win-Release/Cygwin-Windows/server.exe: ../../dist/Win-Release/Cygwin-Windows/libmini-net.a
 
 dist/Win-Release/Cygwin-Windows/server.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Win-Release/Cygwin-Windows
@@ -66,6 +67,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/Server.o: Server.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
 
 # Subprojects
 .build-subprojects:

@@ -23,13 +23,13 @@ CND_PACKAGE_DIR_Linux-Release=dist/Linux-Release/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Linux-Release=server.tar
 CND_PACKAGE_PATH_Linux-Release=dist/Linux-Release/GNU-Linux-x86/package/server.tar
 # Win-Debug configuration
-CND_PLATFORM_Win-Debug=Cygwin-Linux-x86
-CND_ARTIFACT_DIR_Win-Debug=dist/Win-Debug/Cygwin-Linux-x86
+CND_PLATFORM_Win-Debug=Cygwin-Windows
+CND_ARTIFACT_DIR_Win-Debug=dist/Win-Debug/Cygwin-Windows
 CND_ARTIFACT_NAME_Win-Debug=server
-CND_ARTIFACT_PATH_Win-Debug=dist/Win-Debug/Cygwin-Linux-x86/server
-CND_PACKAGE_DIR_Win-Debug=dist/Win-Debug/Cygwin-Linux-x86/package
+CND_ARTIFACT_PATH_Win-Debug=dist/Win-Debug/Cygwin-Windows/server
+CND_PACKAGE_DIR_Win-Debug=dist/Win-Debug/Cygwin-Windows/package
 CND_PACKAGE_NAME_Win-Debug=server.tar
-CND_PACKAGE_PATH_Win-Debug=dist/Win-Debug/Cygwin-Linux-x86/package/server.tar
+CND_PACKAGE_PATH_Win-Debug=dist/Win-Debug/Cygwin-Windows/package/server.tar
 # Win-Release configuration
 CND_PLATFORM_Win-Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Win-Release=dist/Win-Release/Cygwin-Windows

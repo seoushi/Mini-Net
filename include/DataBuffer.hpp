@@ -48,12 +48,40 @@ class DataBuffer
         DataBuffer();
 
         /**
+         * Constructor with data intialization
+         * This copies the data passed in and sets the position to 0
+         * @param data the data to copy to the buffer
+         * @param size the size of the data
+         */
+        DataBuffer(char* data, size_t size);
+
+        /**
+         * Constructor from another DataBuffer
+         * This copies the data passed in and sets the position to 0
+         * @param buffer the DataBuffer to copy
+         */
+        DataBuffer(DataBuffer& buffer);
+
+        /**
          * Default destructor
          */
         ~DataBuffer();
 
         /**
+         * Clears all the data from the buffer
+         */
+        void clear();
+
+        /**
+         * Gets the current position in the buffer
+         * @return the position in the buffer
+         */
+        size_t position();
+
+        /**
          * Resizes the data buffer to a given size.
+         * if the newSize is smaller than the previous size the buffer position
+         * is set back to the begining
          * @param newSize the new size for the buffer
          */
         void resize(size_t newSize);
@@ -62,6 +90,13 @@ class DataBuffer
          * Sets the current data pointer to the begining of the buffer
          */
         void rewind();
+
+        /**
+         * moves the position in the buffer forward by an amount
+         * seek will no go past the end of a buffer or before the begining
+         * @param bytes the amount to move forward in the buffer
+         */
+        void seek(size_t bytes);
 
         /**
          * Gets the size of the data buffer currently in use
@@ -82,10 +117,10 @@ class DataBuffer
         size_t spaceLeft();
 
         /**
-         * Gets a pointer to the current position in the buffer
-         * @return pointer to the current position in the buffer
+         * Gets a pointer to begining of the data
+         * @return pointer to the begining of the data
          */
-        void* data();
+        char* data();
 
 
     /***************************************************************************
@@ -100,7 +135,7 @@ class DataBuffer
          * @param size the amount to read
          * @return the data read
          */
-        void* read(size_t size);
+        char* read(size_t size);
 
         /**
          * Reads a short from the buffer
@@ -194,7 +229,7 @@ class DataBuffer
          * @param data the data to write to the buffer
          * @param length the length of the data to write
          */
-        void write(void* data, size_t length);
+        void write(char* data, size_t length);
 
 
         /**
@@ -276,7 +311,7 @@ class DataBuffer
 
     private:
 
-        void* buffer;           /**< pointer to the data buffer               */
+        char* buffer;           /**< pointer to the data buffer               */
         size_t bufferSize;      /**< the amount currently used in the buffer  */
         size_t maxBufferSize;   /**< the size of the allocated buffer         */
         size_t bufferPosition;  /**< the current position in the buffer       */

@@ -93,8 +93,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#a4fc4f717b634e66070366cb7722d7761">Message</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#a3f7275462831f787a861271687bcad67">~Message</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#a47905c95e90f7381b86503c6615da441">read</a> (<a class="el" href="class_connection.html">Connection</a> *con)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#ac81b1614779e17dcc885a0c2eea244c9">read</a> (<a class="el" href="class_connection.html">Connection</a> *con)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#a9dd9001e714f03d9a5afa8ca4512633b">write</a> (<a class="el" href="class_connection.html">Connection</a> *con)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#aeef388801ff8712d824ad179a6e24eee">isComplete</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#ae90eb93aa14ec43888934f032a6685e2">setData</a> (<a class="el" href="class_data_buffer.html">DataBuffer</a> buffer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_data_buffer.html">DataBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#af380fef5fcc54b4f9d24531e557ba63e">getData</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message.html#a3125ef7a2efd9c8c83359de4cb03408e">getLength</a> ()</td></tr>
 </table>
@@ -190,12 +192,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a47905c95e90f7381b86503c6615da441"></a><!-- doxytag: member="Message::read" ref="a47905c95e90f7381b86503c6615da441" args="(Connection *con)" -->
+<a class="anchor" id="ac81b1614779e17dcc885a0c2eea244c9"></a><!-- doxytag: member="Message::read" ref="ac81b1614779e17dcc885a0c2eea244c9" args="(Connection *con)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Message::read </td>
+          <td class="memname">int Message::read </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_connection.html">Connection</a> *&#160;</td>
           <td class="paramname"><em>con</em></td><td>)</td>
@@ -211,6 +213,55 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the number of bytes read </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae90eb93aa14ec43888934f032a6685e2"></a><!-- doxytag: member="Message::setData" ref="ae90eb93aa14ec43888934f032a6685e2" args="(DataBuffer buffer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Message::setData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_data_buffer.html">DataBuffer</a>&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Sets the message's data to the new buffer </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the buffer to set the data too </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9dd9001e714f03d9a5afa8ca4512633b"></a><!-- doxytag: member="Message::write" ref="a9dd9001e714f03d9a5afa8ca4512633b" args="(Connection *con)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Message::write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_connection.html">Connection</a> *&#160;</td>
+          <td class="paramname"><em>con</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Writes data to a connection </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">con</td><td>the connection to write data to </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -222,7 +273,7 @@ Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="class_message.html">Message</a>      </li>
-      <li class="footer">Generated on Wed Jan 12 2011 14:01:42 for Mini-Net by&#160;
+      <li class="footer">Generated on Fri Jan 14 2011 15:56:27 for Mini-Net by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

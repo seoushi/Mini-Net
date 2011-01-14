@@ -43,12 +43,44 @@ DataBuffer::DataBuffer()
     bufferPosition = 0;
 }
 
+DataBuffer::DataBuffer(char* data, size_t size)
+{
+    buffer = NULL;
+    bufferPosition = 0;
+    bufferSize = 0;
+    maxBufferSize = 0;
+
+    write(data, size);
+}
+
+
+DataBuffer::DataBuffer(DataBuffer& buf)
+{
+    buffer = NULL;
+    bufferPosition = 0;
+    bufferSize = 0;
+    maxBufferSize = 0;
+
+    write(buf.data(), buf.size());
+}
+
 
 DataBuffer::~DataBuffer()
 {
     free(buffer);
 }
 
+
+void DataBuffer::clear()
+{
+    resize(0);
+}
+
+
+size_t DataBuffer::position()
+{
+    return bufferPosition;
+}
 
 
 void DataBuffer::resize(size_t newSize)
@@ -59,37 +91,46 @@ void DataBuffer::resize(size_t newSize)
         bufferPosition = 0;
     }
 
-    // remeber how big it is
-    maxBufferSize = newSize;
-
-
     // if the buffer doesn't exist make it
     if(!buffer)
     {
-        buffer = malloc(newSize);
+        buffer = (char*)malloc(newSize);
     }
     else // resize the buffer
     {
-        buffer = realloc(buffer, newSize);
+        buffer = (char*)realloc(buffer, newSize);
     }
 
-    
+    // if the new size is smaller
+    if(newSize < maxBufferSize)
+    {
+        bufferPosition = 0;
+    }
 
-    // if the new size is smaller and the buffer position is past the end set it to the end
-    if(bufferPosition == 0)
-    {
-         bufferPosition = 0;
-    }
-    else if(bufferPosition >= newSize)
-    {
-        bufferPosition = newSize - 1;
-    }
+
+    // remeber how big it is
+    maxBufferSize = newSize;
 }
 
 
 void DataBuffer::rewind()
 {
     bufferPosition = 0;
+}
+
+
+void DataBuffer::seek(size_t bytes)
+{
+    bufferPosition += bytes;
+
+    if(bufferPosition < 0)
+    {
+        bufferPosition = 0;
+    }
+    if(bufferPosition >= maxBufferSize)
+    {
+        bufferPosition = maxBufferSize;
+    }
 }
 
 
@@ -111,9 +152,9 @@ size_t DataBuffer::allocatedSize()
 }
 
 
-void* DataBuffer::data()
+char* DataBuffer::data()
 {
-    return (void*)(((char*)buffer) + bufferPosition);
+    return buffer;
 }
 
 
@@ -122,12 +163,12 @@ void* DataBuffer::data()
 ///
 
 // returns a pointer to the next element
-void* DataBuffer::read(size_t size)
+char* DataBuffer::read(size_t size)
 {
     if(buffer && (size <= spaceLeft()))
     {
-        void* dat = data();
-        bufferPosition += size;
+        char* dat = (buffer + bufferPosition);
+        seek(size);
 
         return dat;
     }
@@ -137,7 +178,7 @@ void* DataBuffer::read(size_t size)
 
 DataBuffer& DataBuffer::operator >>(short& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((short*)data) : 0;
     return *this;
 }
@@ -145,7 +186,7 @@ DataBuffer& DataBuffer::operator >>(short& val)
 
 DataBuffer& DataBuffer::operator >>(char& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((char*)data) : 0;
     return *this;
 }
@@ -153,7 +194,7 @@ DataBuffer& DataBuffer::operator >>(char& val)
 
 DataBuffer& DataBuffer::operator >>(int& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((int*)data) : 0;
     return *this;
 }
@@ -161,7 +202,7 @@ DataBuffer& DataBuffer::operator >>(int& val)
 
 DataBuffer& DataBuffer::operator >>(long long& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((long long*)data) : 0;
     return *this;
 }
@@ -169,7 +210,7 @@ DataBuffer& DataBuffer::operator >>(long long& val)
 
 DataBuffer& DataBuffer::operator >>(unsigned short& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((unsigned short*)data) : 0;
     return *this;
 }
@@ -177,7 +218,7 @@ DataBuffer& DataBuffer::operator >>(unsigned short& val)
 
 DataBuffer& DataBuffer::operator >>(unsigned char& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((unsigned char*)data) : 0;
     return *this;
 }
@@ -185,7 +226,7 @@ DataBuffer& DataBuffer::operator >>(unsigned char& val)
 
 DataBuffer& DataBuffer::operator >>(unsigned int& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((unsigned int*)data) : 0;
     return *this;
 }
@@ -193,7 +234,7 @@ DataBuffer& DataBuffer::operator >>(unsigned int& val)
 
 DataBuffer& DataBuffer::operator >>(unsigned long long& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((unsigned long long*)data) : 0;
     return *this;
 }
@@ -201,7 +242,7 @@ DataBuffer& DataBuffer::operator >>(unsigned long long& val)
 
 DataBuffer& DataBuffer::operator >>(float& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((float*)data) : 0;
     return *this;
 }
@@ -209,7 +250,7 @@ DataBuffer& DataBuffer::operator >>(float& val)
 
 DataBuffer& DataBuffer::operator >>(double& val)
 {
-    void* data = read(sizeof(val));
+    char* data = read(sizeof(val));
     val = data ? *((double*)data) : 0;
     return *this;
 }
@@ -244,7 +285,7 @@ DataBuffer& DataBuffer::operator >>(std::string& val)
 ///
 
 
-void DataBuffer::write(void* dataP, size_t length)
+void DataBuffer::write(char* dataP, size_t length)
 {
     // no buffer? buffer not big enough? resize it
     if(spaceLeft() < length)
@@ -253,64 +294,64 @@ void DataBuffer::write(void* dataP, size_t length)
     }
 
     memcpy(data(), dataP, length);
-
-    bufferPosition += length;
     bufferSize += length;
+
+    seek(length);
 }
 
 
 DataBuffer& DataBuffer::operator <<(const short& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const char& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const int& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const long long& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const unsigned short& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const unsigned char& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const unsigned int& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const unsigned long long& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
@@ -329,13 +370,13 @@ DataBuffer& DataBuffer::operator <<(const std::string& val)
 
 DataBuffer& DataBuffer::operator <<(const float& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }
 
 
 DataBuffer& DataBuffer::operator <<(const double& val)
 {
-    write((void*)&val, sizeof(val));
+    write((char*)&val, sizeof(val));
     return *this;
 }

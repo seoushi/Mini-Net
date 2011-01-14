@@ -58,7 +58,8 @@ bool doWriteTest(DataBuffer* buffer)
             + sizeof(ull) + (sizeof(char) * (strlen(str) + 1));
 
     std::cout << "Writing to buffer: ";
-    (*buffer) << i << s << c << f << d << ui << us << uc << ll << ull << std::string(str);
+    (*buffer) << i << s << c << f << d << ui << us << uc << ll << ull
+            << std::string(str);
     
     if(buffer->size() == bufferSize)
     {
@@ -93,7 +94,8 @@ bool doReadTest(DataBuffer* buffer)
     // do reading
     std::cout << "Reading from buffer: ";
 
-    // implement reading here
+    (*buffer) >> ri >> rs >> rc >> rf >> rd >> rui >> rus >> ruc >> rll >> rull >> rstr;
+
 
     // check values
     if(c != rc)
@@ -185,8 +187,7 @@ int main(int argc, char** argv)
     {
         testsPassed++;
     }
-
-    std::cout << std::endl << std::endl;
+    
     buffer.rewind();
 
     if(doReadTest(&buffer))
@@ -194,11 +195,11 @@ int main(int argc, char** argv)
         testsPassed++;
     }
 
-    // test resizing too small
+    // test resizing too small, failing is crashing :(
     buffer.resize(0);
+    std::cout << "Resizing: [PASSED]" << std::endl << std::endl;
     testsPassed++;
 
-    std::cout << std::endl << std::endl;
     std::cout << "Passed " << testsPassed << " test and failed " << numTests - testsPassed << std::endl;
 
 

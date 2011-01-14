@@ -135,155 +135,94 @@ void* DataBuffer::read(size_t size)
     return NULL;
 }
 
-
-short DataBuffer::readShort()
+DataBuffer& DataBuffer::operator >>(short& val)
 {
-    void* data = read(sizeof(short));
-
-    if(data)
-    {
-        short* s = (short*)data;
-        return *s;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((short*)data) : 0;
+    return *this;
 }
 
 
-char DataBuffer::readChar()
+DataBuffer& DataBuffer::operator >>(char& val)
 {
-    void* data = read(sizeof(char));
-
-    if(data)
-    {
-        char* c = (char*)data;
-        return *c;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((char*)data) : 0;
+    return *this;
 }
 
 
-int DataBuffer::readInt()
+DataBuffer& DataBuffer::operator >>(int& val)
 {
-    void* data = read(sizeof(int));
-
-    if(data)
-    {
-        int* i = (int*)data;
-        return *i;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((int*)data) : 0;
+    return *this;
 }
 
 
-long long DataBuffer::readLongLong()
+DataBuffer& DataBuffer::operator >>(long long& val)
 {
-    void* data = read(sizeof(long long));
-
-    if(data)
-    {
-        long long* l = (long long*)data;
-        return *l;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((long long*)data) : 0;
+    return *this;
 }
 
 
-unsigned short DataBuffer::readUnsignedShort()
+DataBuffer& DataBuffer::operator >>(unsigned short& val)
 {
-    void* data = read(sizeof(unsigned short));
-
-    if(data)
-    {
-        unsigned short* us = (unsigned short*)data;
-        return *us;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((unsigned short*)data) : 0;
+    return *this;
 }
 
 
-unsigned char DataBuffer::readUnsignedChar()
+DataBuffer& DataBuffer::operator >>(unsigned char& val)
 {
-    void* data = read(sizeof(unsigned char));
-
-    if(data)
-    {
-        unsigned char* uc = (unsigned char*)data;
-        return *uc;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((unsigned char*)data) : 0;
+    return *this;
 }
 
 
-unsigned int DataBuffer::readUnsignedInt()
+DataBuffer& DataBuffer::operator >>(unsigned int& val)
 {
-    void* data = read(sizeof(unsigned int));
-
-    if(data)
-    {
-        unsigned int* ui = (unsigned int*)data;
-        return *ui;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((unsigned int*)data) : 0;
+    return *this;
 }
 
 
-unsigned long long DataBuffer::readUnsignedLongLong()
+DataBuffer& DataBuffer::operator >>(unsigned long long& val)
 {
-    void* data = read(sizeof(unsigned long long));
-
-    if(data)
-    {
-        unsigned long long* ul = (unsigned long long*)data;
-        return *ul;
-    }
-
-    return 0;
+    void* data = read(sizeof(val));
+    val = data ? *((unsigned long long*)data) : 0;
+    return *this;
 }
 
 
-float DataBuffer::readFloat()
+DataBuffer& DataBuffer::operator >>(float& val)
 {
-    void* data = read(sizeof(float));
-
-    if(data)
-    {
-        float* f = (float*)data;
-        return *f;
-    }
-
-    return 0.0f;
+    void* data = read(sizeof(val));
+    val = data ? *((float*)data) : 0;
+    return *this;
 }
 
 
-double DataBuffer::readDouble()
+DataBuffer& DataBuffer::operator >>(double& val)
 {
-    void* data = read(sizeof(double));
-
-    if(data)
-    {
-        double* d = (double*)data;
-        return *d;
-    }
-
-    return 0.0f;
+    void* data = read(sizeof(val));
+    val = data ? *((double*)data) : 0;
+    return *this;
 }
 
 
-std::string DataBuffer::readString()
+DataBuffer& DataBuffer::operator >>(std::string& val)
 {
     std::stringstream ss;
     char c;
 
     for(;;)
     {
-        c = readChar();
+        *this >> c;
 
         if(c == 0)
         {
@@ -295,7 +234,8 @@ std::string DataBuffer::readString()
         }
     }
 
-    return ss.str();
+    val = ss.str();
+    return *this;
 }
 
 

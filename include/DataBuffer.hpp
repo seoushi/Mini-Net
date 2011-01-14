@@ -104,69 +104,81 @@ class DataBuffer
 
         /**
          * Reads a short from the buffer
-         * @return a short
+         * @param s the short to read into
+         * @return a reference to the data buffer
          */
-        short readShort();
+        DataBuffer& operator >>(short& s);
 
         /**
          * Reads a char from the buffer
-         * @return a char
+         * @param c the char to read into
+         * @return a reference to the data buffer
          */
-        char readChar();
+        DataBuffer& operator >>(char& s);
 
         /**
          * Reads an int from the buffer
-         * @return an int
+         * @param i the int to read into
+         * @return a reference to the data buffer
          */
-        int readInt();
+        DataBuffer& operator >>(int& i);
 
         /**
          * Reads a long long from the buffer
-         * @return a long long
+         * @param ll the long long to read into
+         * @return a reference to the data buffer
          */
-        long long readLongLong();
+        DataBuffer& operator >>(long long& ll);
 
         /**
          * Reads a unsigned short from the buffer
-         * @return a unsigned short
+         * @param us the unsigned short to read into
+         * @return a reference to the data buffer
          */
-        unsigned short readUnsignedShort();
+        DataBuffer& operator >>(unsigned short& us);
 
         /**
          * Reads a unsigned char from the buffer
-         * @return a unsigned char
+         * @param uc the unsigned char to read into
+         * @return a reference to the data buffer
          */
-        unsigned char readUnsignedChar();
+        DataBuffer& operator >>(unsigned char& uc);
 
         /**
          * Reads a unsigned int from the buffer
-         * @return a unsigned int
+         * @param ui the unsigned int to read into
+         * @return a reference to the data buffer
          */
-        unsigned int readUnsignedInt();
-
+        DataBuffer& operator >>(unsigned int& ui);
+        
         /**
          * Reads a unsigned long long from the buffer
-         * @return a unsigned long long
+         * @param ull the unsigned long long to read into
+         * @return a reference to the data buffer
          */
-        unsigned long long readUnsignedLongLong();
+        DataBuffer& operator >>(unsigned long long& ull);
+        
 
         /**
-         * Reads a float from the buffer
-         * @return a float
+         * Reads an float from the buffer
+         * @param f the float to read into
+         * @return a reference to the data buffer
          */
-        float readFloat();
+        DataBuffer& operator >>(float& f);
 
         /**
-         * Reads a double from the buffer
-         * @return a double
+         * Reads an double from the buffer
+         * @param d the double to read into
+         * @return a reference to the data buffer
          */
-        double readDouble();
+        DataBuffer& operator >>(double& d);
 
         /**
-         * Reads a null terminated string from the buffer
-         * @return a std::string
+         * Reads an std::string from the buffer
+         * @param s the int to read into
+         * @return a reference to the data buffer
          */
-        std::string readString();
+        DataBuffer& operator >>(std::string& s);
 
 
 

@@ -15,7 +15,7 @@ Current Features
     
 Planned Stuff
     Fix bugs
-    add << and >> operators for data buffers and write/reading data buffers/messages to connections
+    add << and >> operators for data buffers and writing/reading messages to connections
     add server/client templates in the main library with Delegates for events
     clean up code
     

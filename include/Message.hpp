@@ -57,14 +57,28 @@ class Message
         /**
          * Reads data from a connection
          * @param con the connection to read data from
+         * @return the number of bytes read
          */
-        void read(Connection* con);
+        int read(Connection* con);
+
+        /**
+         * Writes data to a connection
+         * @param con the connection to write data to
+         */
+        void write(Connection* con);
 
         /**
          * Tells if the message has read all of the data needed
          * @return true if the message message has its data otherwise false
          */
         bool isComplete();
+
+        /**
+         * Sets the message's data to the new buffer
+         * @param buffer the buffer to set the data too
+         */
+        void setData(DataBuffer buffer);
+
 
         /**
          * Gets the data from the buffer

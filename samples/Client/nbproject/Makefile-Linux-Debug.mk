@@ -22,7 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
-CND_CONF=Win-Debug
+CND_CONF=Linux-Debug
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -33,8 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/Server.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -51,40 +50,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
+LDLIBSOPTIONS=../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/GNU-Linux-x86/server
+	"${MAKE}"  -f nbproject/Makefile-Linux-Debug.mk dist/Linux-Debug/GNU-Linux-x86/client
 
-dist/Win-Debug/GNU-Linux-x86/server: ../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
+dist/Linux-Debug/GNU-Linux-x86/client: ../../dist/Linux-Debug/GNU-Linux-x86/libmini-net.a
 
-dist/Win-Debug/GNU-Linux-x86/server: ${OBJECTFILES}
-	${MKDIR} -p dist/Win-Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Linux-Debug/GNU-Linux-x86/client: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux-Debug/GNU-Linux-x86
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/client ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
-
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Win-Debug
-	${RM} dist/Win-Debug/GNU-Linux-x86/server
+	${RM} -r build/Linux-Debug
+	${RM} dist/Linux-Debug/GNU-Linux-x86/client
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Linux-Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

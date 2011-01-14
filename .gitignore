@@ -6,4 +6,7 @@ samples/DataBufferTest/dist/*
 samples/DataBufferTest/.dep.inc
 samples/Server/build/*
 samples/Server/dist/*
-samples/Server/.dep.inc
+samples/Server/.dep.inc/samples/Client/build/Linux-Debug/GNU-Linux-x86/main.o
+/samples/Client/build/Linux-Debug/GNU-Linux-x86/main.o.d
+/samples/Client/dist/Linux-Debug/GNU-Linux-x86/client
+/samples/Client/build/Linux-Debug/GNU-Linux-x86/main.o

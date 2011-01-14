@@ -232,11 +232,11 @@ bool Connection::connect(const char* address, int port)
 
 int Connection::read(char* buffer, int bufferSize)
 {
-    int bytesRead = recv(sockfd, buffer, bufferSize - 1, 0);
+    int bytesRead = recv(sockfd, buffer, bufferSize, 0);
 
     if(bytesRead == -1)
     {
-        perror("read");
+        perror("read error");
         return 0;
     }
 
@@ -247,20 +247,20 @@ int Connection::read(char* buffer, int bufferSize)
 bool Connection::write(const char* data, int length)
 {
     int sent = 0;
-    int bytesleft = length;
+    int bytesLeft = length;
     int n;
 
-    while(sent < length)
+    while(bytesLeft)
     {
-        n = send(sockfd, data + sent, bytesleft, 0);
+        n = send(sockfd, data + sent, bytesLeft, 0);
         if(n == -1)
         {
-            perror("write");
+            perror("write error");
             return false;
         }
 
         sent += n;
-        bytesleft -= n;
+        bytesLeft -= n;
     }
 
     return true;

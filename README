@@ -8,12 +8,18 @@ Current Features
     Sending/Receiving data
     Connection Pools and polling connections for data
     Data buffers for easy writing/recieving of data
-	Sample server project
-	Messages for combining data buffers and connections
-	Fully documented via Doxygen
+    Sample server/client project
+    Messages for combining data buffers and connections
+    Fully documented via Doxygen
+    Bugs
     
 Planned Stuff
-	Sample client and server using all features
+    Fix bugs
+    add << and >> operators for data buffers and write/reading data buffers/messages to connections
+    add server/client templates in the main library with Delegates for events
+    clean up code
+    
+    
     
     
     

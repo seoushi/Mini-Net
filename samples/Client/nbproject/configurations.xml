@@ -5,7 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>Server.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,7 +15,6 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>Server.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -70,11 +68,21 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
         <ccTool>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../../include</pElem>
           </incDir>
         </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -105,29 +113,13 @@
             <pElem>../../include</pElem>
           </incDir>
         </ccTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../.."
-                            CT="3"
-                            CN="Win-Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../.."
-                            BC="${MAKE}  -f Makefile CONF=Win-Debug"
-                            CC="${MAKE}  -f Makefile CONF=Win-Debug clean"
-                            OP="dist/Win-Debug/Cygwin-Windows/libmini-net.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
     </conf>
     <conf name="Win-Release" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin|Cygwin</compilerSet>
-        <platform>3</platform>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -145,22 +137,6 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../.."
-                            CT="3"
-                            CN="Win-Release"
-                            AC="false"
-                            BL="true"
-                            WD="../.."
-                            BC="${MAKE}  -f Makefile CONF=Win-Release"
-                            CC="${MAKE}  -f Makefile CONF=Win-Release clean"
-                            OP="dist/Win-Release/Cygwin-Windows/libmini-net.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
     </conf>
   </confs>

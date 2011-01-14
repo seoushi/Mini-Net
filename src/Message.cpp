@@ -45,16 +45,28 @@ Message::~Message()
 }
 
 
-void Message::read(Connection* con)
+int Message::read(Connection* con)
 {
+    int bytesRead = 0;
+
     // don't read if we don't need to
-    if(bytesLeft == 0)
+    if(!bytesLeft)
     {
-        return;
+        return 0;
     }
 
+    // find the read offset
+    int offset = length - bytesLeft;
+
+    if(offset < 0)
+    {
+        offset = 0;
+    }
+
+
     // try to read as much as we need from the connection
-    bytesLeft -= con->read((char*)buffer.data(), bytesLeft);
+    bytesRead = con->read((char*)buffer.data() + offset, bytesLeft);
+    bytesLeft -= bytesRead;
 
 
     // we haven't read the length yet and are done reading the length
@@ -67,6 +79,20 @@ void Message::read(Connection* con)
 
         hasReadLength = true;
     }
+
+    if(!bytesLeft)
+    {
+        buffer.rewind();
+    }
+
+    return bytesRead;
+}
+
+
+void Message::write(Connection* con)
+{
+    con->write((char*)&length, sizeof(length));
+    con->write((char*)buffer.data(), buffer.size());
 }
 
  
@@ -82,6 +108,15 @@ bool Message::isComplete()
 }
 
 
+void Message::setData(DataBuffer buffer)
+{
+    buffer.rewind();
+    this->buffer = buffer;
+
+    length = buffer.size();
+}
+
+
 DataBuffer* Message::getData()
 {
     return &buffer;
@@ -90,5 +125,5 @@ DataBuffer* Message::getData()
 
 size_t Message::getLength()
 {
-    return length;
+    return (size_t)length;
 }

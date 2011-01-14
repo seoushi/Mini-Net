@@ -33,8 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/Server.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -51,40 +50,31 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/GNU-Linux-x86/server
+	"${MAKE}"  -f nbproject/Makefile-Win-Debug.mk dist/Win-Debug/GNU-Linux-x86/client
 
-dist/Win-Debug/GNU-Linux-x86/server: ../../dist/Win-Debug/Cygwin-Windows/libmini-net.a
-
-dist/Win-Debug/GNU-Linux-x86/server: ${OBJECTFILES}
+dist/Win-Debug/GNU-Linux-x86/client: ${OBJECTFILES}
 	${MKDIR} -p dist/Win-Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/client ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Server.o Server.cpp
-
 # Subprojects
 .build-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Win-Debug
-	${RM} dist/Win-Debug/GNU-Linux-x86/server
+	${RM} dist/Win-Debug/GNU-Linux-x86/client
 
 # Subprojects
 .clean-subprojects:
-	cd ../.. && ${MAKE}  -f Makefile CONF=Win-Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

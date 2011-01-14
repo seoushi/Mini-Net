@@ -52,17 +52,15 @@ DataBuffer::~DataBuffer()
 
 void DataBuffer::resize(size_t newSize)
 {
-    // special case 0 as freeing memory
     if(newSize == 0)
     {
-        free(buffer);
-        buffer = NULL;
         bufferSize = 0;
-        maxBufferSize = 0;
         bufferPosition = 0;
-        
-        return;
     }
+
+    // remeber how big it is
+    maxBufferSize = newSize;
+
 
     // if the buffer doesn't exist make it
     if(!buffer)
@@ -74,11 +72,14 @@ void DataBuffer::resize(size_t newSize)
         buffer = realloc(buffer, newSize);
     }
 
-    // remeber how big it is
-    maxBufferSize = newSize;
+    
 
     // if the new size is smaller and the buffer position is past the end set it to the end
-    if(bufferPosition >= newSize)
+    if(bufferPosition == 0)
+    {
+         bufferPosition = 0;
+    }
+    else if(bufferPosition >= newSize)
     {
         bufferPosition = newSize - 1;
     }
@@ -122,7 +123,7 @@ void* DataBuffer::data()
 // returns a pointer to the next element
 void* DataBuffer::read(size_t size)
 {
-    if(!buffer || (size < spaceLeft()))
+    if(buffer && (size <= spaceLeft()))
     {
         void* dat = data();
         bufferPosition += size;

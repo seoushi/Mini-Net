@@ -161,7 +161,7 @@ bool doReadTest(DataBuffer* buffer)
 
 int main(int argc, char** argv)
 {
-    int numTests = 2;
+    int numTests = 3;
     int testsPassed = 0;
 
     DataBuffer buffer;
@@ -178,6 +178,10 @@ int main(int argc, char** argv)
     {
         testsPassed++;
     }
+
+    // test resizing too small
+    buffer.resize(0);
+    testsPassed++;
 
     std::cout << std::endl << std::endl;
     std::cout << "Passed " << testsPassed << " test and failed " << numTests - testsPassed << std::endl;

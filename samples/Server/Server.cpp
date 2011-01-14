@@ -35,10 +35,6 @@
 Server::Server(int port)
 {
     this->port = port;
-    /*std::map<Connection*, Message>  msgBox;
-        ConnectionPool                  pool;
-        Connection                      serverConnection;
-     */
 }
 
 Server::~Server()
@@ -102,14 +98,12 @@ void Server::update()
                 msg = itr->second;
             }
 
-            size_t previousSize = msg->getData()->allocatedSize();
 
-            // read message data
-            msg->read(conPtr);
-
-
-            // if we read no data they have been disconnected
-            if(previousSize == msg->getData()->allocatedSize())
+            // read message data.
+            int bytesRead = msg->read(conPtr);
+            
+            //if we read no data they have been disconnected
+            if(!bytesRead)
             {
                 onDisconnect(conPtr);
             }
@@ -129,6 +123,9 @@ void Server::update()
 void Server::onMessage(Connection* c, Message* msg)
 {
     std::cout << "got Message from: " << c->getAddress() << " : " << c->getPort() << " with length of " << msg->getLength() << std::endl;
+
+    //echo it back
+    msg->write(c);
 
     delete msg;
 }

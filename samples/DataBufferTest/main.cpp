@@ -31,71 +31,43 @@
 #include "DataBuffer.hpp"
 
 #include <iostream>
+#include <sstream>
+#include <string.h>
+
+// data buffer values
+int     i = -1;
+short   s = -20;
+char    c = 'c';
+float   f = -1.0f;
+double  d = 1.0f;
+unsigned int       ui = -1;
+unsigned short     us = -20;
+unsigned char      uc = 200;
+long long          ll = -234563454;
+unsigned long long ull = 234563454;
+const char*        str = "testing a string";
+
 
 int testServer();
 int testDataBuffer();
 
 bool doWriteTest(DataBuffer* buffer)
 {
-    size_t bufferSize = 0;
+    size_t bufferSize = sizeof(i) + sizeof(s) + sizeof(c) + sizeof(f) +
+            sizeof(d) + sizeof(ui) + sizeof(us) + sizeof(uc) + sizeof(ll)
+            + sizeof(ull) + (sizeof(char) * (strlen(str) + 1));
 
-    // Do write/size testing
-    std::cout << "writing: char 'a'" << std::endl;
-    buffer->write('a');
-    bufferSize += sizeof(char);
-
-    std::cout << "writing: int '2'" << std::endl;
-    buffer->write((int)2);
-    bufferSize += sizeof(int);
-
-    std::cout << "writing: long '3'" << std::endl;
-    buffer->write((long long)3);
-    bufferSize += sizeof(long long);
-
-    std::cout << "writing: float '4.0f'" << std::endl;
-    buffer->write((float)4.0f);
-    bufferSize += sizeof(float);
-
-    std::cout << "writing: double '5.0f'" << std::endl;
-    buffer->write((double)5.0f);
-    bufferSize += sizeof(double);
-
-    std::cout << "writing: short '6'" << std::endl;
-    (*buffer) << ((short)6) << ((unsigned char) 200);
-    //buffer->write((short)6);
-    bufferSize += sizeof(short);
-
-    std::cout << "writing: unsigned char 200" << std::endl;
-    //buffer->write((unsigned char)200);
-    bufferSize += sizeof(unsigned char);
-
-    std::cout << "writing: unsigned int 8" << std::endl;
-    buffer->write((unsigned int)8);
-    bufferSize += sizeof(unsigned int);
-
-    std::cout << "writing: unsigned long 9" << std::endl;
-    buffer->write((unsigned long long)9);
-    bufferSize += sizeof(long long);
-
-    std::cout << "writing: unsigned short '10'" << std::endl;
-    buffer->write((unsigned short)10);
-    bufferSize += sizeof(unsigned short);
-
-    std::cout << "writing: string 'testing a string'" << std::endl;
-    buffer->write(std::string("testing a string"));
-    bufferSize += sizeof(char) * 17; // string + null character
-
-
-    std::cout << "buffer size should be: " << bufferSize << std::endl;
-    std::cout << "buffer size is: " << buffer->size() << std::endl;
+    std::cout << "Writing to buffer: ";
+    (*buffer) << i << s << c << f << d << ui << us << uc << ll << ull << std::string(str);
     
     if(buffer->size() == bufferSize)
     {
-        std::cout << "size test: [PASSED]" << std::endl;
+        std::cout << "[PASSED]" << std::endl;
         return true;
     }
-    
-    std::cout << "size test: [FAILED]" << std::endl;
+
+    std::cout << "[FAILED] buffer size is'" << buffer->size() <<
+            "' should have been '" << bufferSize << "'" << std::endl;
 
     return false;
 }
@@ -103,58 +75,100 @@ bool doWriteTest(DataBuffer* buffer)
 
 bool doReadTest(DataBuffer* buffer)
 {
-    char c = buffer->readChar();
-    std::cout << "read char: 'a' == '" << c << "'" << std::endl;
+    int ri;
+    short rs;
+    char rc;
+    float rf;
+    double rd;
+    unsigned int rui;
+    unsigned short rus;
+    unsigned char ruc;
+    long long rll;
+    unsigned long long rull;
+    std::string rstr;
 
-    int i = buffer->readInt();
-    std::cout << "read int: 2 == " << i << std::endl;
+    bool error = false;
+    std::stringstream errorStream;
 
-    long long l = buffer->readLongLong();
-    std::cout << "read long: 3 == " << l << std::endl;
+    // do reading
+    std::cout << "Reading from buffer: ";
 
-    float f = buffer->readFloat();
-    std::cout << "read float: 4.0f == " << f << std::endl;
+    // implement reading here
 
-    double d = buffer->readDouble();
-    std::cout << "read double: 5.0f == " << d << std::endl;
-
-    short s = buffer->readShort();
-    std::cout << "read short: 6 == " << s << std::endl;
-
-
-
-    unsigned char uc = buffer->readUnsignedChar();
-    std::cout << "read unsigned char: 200 == " << uc << std::endl;
-
-    unsigned int ui = buffer->readUnsignedInt();
-    std::cout << "read unsigned int: 8 == " << ui << std::endl;
-
-    unsigned long long ul = buffer->readUnsignedLongLong();
-    std::cout << "read unsigned long: 9 == " << ul << std::endl;
-
-    unsigned short us = buffer->readUnsignedShort();
-    std::cout << "read unsigned short: 10 == " << us << std::endl;
-
-    std::string str = buffer->readString();
-    std::cout << "read string: 'testing a string' == '" << str << "'" << std::endl;
-
-    if((c == 'a') &&
-       (i == 2) &&
-       (l == 3) &&
-       (f == 4.0f) &&
-       (d == 5.0f) &&
-       (s == 6) &&
-       (uc == 200) &&
-       (ui == 8) &&
-       (ul == 9) &&
-       (us == 10) &&
-       (str == std::string("testing a string")))
+    // check values
+    if(c != rc)
     {
-        std::cout << "content test: [PASSED]" << std::endl;
+        error = true;
+        errorStream << "\t char '" << c << "' != '" << rc << "'" << std::endl;
+    }
+
+    if(i != ri)
+    {
+        error = true;
+        errorStream << "\t int '" << i << "' != '" << ri << "'" << std::endl;
+    }
+
+    if(ll != rll)
+    {
+        error = true;
+        errorStream << "\t long long '" << ll << "' != '" << rll << "'" << std::endl;
+    }
+
+    if(f != rf)
+    {
+        error = true;
+        errorStream << "\t float '" << f << "' != '" << rf << "'" << std::endl;
+    }
+
+    if(d != rd)
+    {
+        error = true;
+        errorStream << "\t double '" << d << "' != '" << rd << "'" << std::endl;
+    }
+
+    if(s != rs)
+    {
+        error = true;
+        errorStream << "\t short'" << s << "' != '" << rs << "'" << std::endl;
+    }
+
+    if(uc != ruc)
+    {
+        error = true;
+        errorStream << "\t unsigned char '" << uc << "' != '" << ruc << "'" << std::endl;
+    }
+
+    if(ui != rui)
+    {
+        error = true;
+        errorStream << "\t unsigned int '" << ui << "' != '" << rui << "'" << std::endl;
+    }
+
+    if(ull != rull)
+    {
+        error = true;
+        errorStream << "\t unsigned long '" << ull << "' != '" << rull << "'" << std::endl;
+    }
+
+    if(us != rus)
+    {
+        error = true;
+        errorStream << "\t unsigned short '" << us << "' != '" << rus << "'" << std::endl;
+    }
+
+    if(str != rstr)
+    {
+        error = true;
+        errorStream << "\t std::string '" << str << "' != '" << rstr << "'" << std::endl;
+    }
+
+    if(!error)
+    {
+        std::cout << "[PASSED]" << std::endl;
         return true;
     }
 
-    std::cout << "content test: [FAILED]" << std::endl;
+    std::cout << "[FAILED] : " << std::endl << errorStream.str() << std::endl;
 
     return false;
 }

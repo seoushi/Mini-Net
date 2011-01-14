@@ -29,6 +29,7 @@
  */
 
 #include "DataBuffer.hpp"
+#include "Connection.hpp"
 
 #include <string.h>
 #include <malloc.h>
@@ -317,68 +318,84 @@ void DataBuffer::write(void* dataP, size_t length)
     bufferSize += length;
 }
 
-void DataBuffer::write(short s)
+
+DataBuffer& DataBuffer::operator <<(const short& val)
 {
-    write((void*)&s, sizeof(short));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(char c)
+DataBuffer& DataBuffer::operator <<(const char& val)
 {
-    write((void*)&c, sizeof(char));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(int i)
+DataBuffer& DataBuffer::operator <<(const int& val)
 {
-    write((void*)&i, sizeof(int));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(long long l)
+DataBuffer& DataBuffer::operator <<(const long long& val)
 {
-    write((void*)&l, sizeof(long long));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(unsigned short us)
+DataBuffer& DataBuffer::operator <<(const unsigned short& val)
 {
-    write((void*)&us, sizeof(unsigned short));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(unsigned char uc)
+DataBuffer& DataBuffer::operator <<(const unsigned char& val)
 {
-    write((void*)&uc, sizeof(unsigned char));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(unsigned int ui)
+DataBuffer& DataBuffer::operator <<(const unsigned int& val)
 {
-    write((void*)&ui, sizeof(unsigned int));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(unsigned long long ul)
+DataBuffer& DataBuffer::operator <<(const unsigned long long& val)
 {
-    write((void*)&ul, sizeof(unsigned long long));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(std::string s)
+DataBuffer& DataBuffer::operator <<(const std::string& val)
 {
-    write((void*)&s[0], s.length() * sizeof(char));
-    write((char)0);
+    for(std::string::const_iterator itr = val.begin(); itr != val.end(); itr++)
+    {
+        *this << (*itr);
+    }
+    *this << (char)0;
+    
+    return *this;
 }
 
 
-void DataBuffer::write(float f)
+DataBuffer& DataBuffer::operator <<(const float& val)
 {
-    write((void*)&f, sizeof(float));
+    write((void*)&val, sizeof(val));
+    return *this;
 }
 
 
-void DataBuffer::write(double d)
+DataBuffer& DataBuffer::operator <<(const double& val)
 {
-    write((void*)&d, sizeof(double));
+    write((void*)&val, sizeof(val));
+    return *this;
 }

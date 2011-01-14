@@ -61,11 +61,12 @@ bool doWriteTest(DataBuffer* buffer)
     bufferSize += sizeof(double);
 
     std::cout << "writing: short '6'" << std::endl;
-    buffer->write((short)6);
+    (*buffer) << ((short)6) << ((unsigned char) 200);
+    //buffer->write((short)6);
     bufferSize += sizeof(short);
 
     std::cout << "writing: unsigned char 200" << std::endl;
-    buffer->write((unsigned char)200);
+    //buffer->write((unsigned char)200);
     bufferSize += sizeof(unsigned char);
 
     std::cout << "writing: unsigned int 8" << std::endl;

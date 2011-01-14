@@ -184,71 +184,83 @@ class DataBuffer
          */
         void write(void* data, size_t length);
 
+
         /**
          * Writes a short to the buffer
          * @param s the short to write
+         * @return a reference to the DataBuffer
          */
-        void write(short s);
+        DataBuffer& operator <<(const short& s);
 
         /**
          * Writes a char to the buffer
          * @param c the char to write
+         * @return a reference to the DataBuffer
          */
-        void write(char c);
+        DataBuffer& operator <<(const char& c);
 
         /**
          * Writes an int to the buffer
          * @param i the int to write
+         * @return a reference to the DataBuffer
          */
-        void write(int i);
+        DataBuffer& operator <<(const int& i);
 
         /**
          * Writes a long long to the buffer
-         * @param l the long long to write
+         * @param ll the long long to write
+         * @return a reference to the DataBuffer
          */
-        void write(long long l);
+        DataBuffer& operator <<(const long long& ll);
 
         /**
          * Writes a unsigned short to the buffer
          * @param us the unsigned short to write
+         * @return a reference to the DataBuffer
          */
-        void write(unsigned short us);
+        DataBuffer& operator <<(const unsigned short& us);
 
         /**
          * Writes a unsigned char to the buffer
          * @param uc the unsigned char to write
+         * @return a reference to the DataBuffer
          */
-        void write(unsigned char uc);
+        DataBuffer& operator <<(const unsigned char& uc);
 
         /**
          * Writes a unsigned int to the buffer
          * @param ui the unsigned int to write
+         * @return a reference to the DataBuffer
          */
-        void write(unsigned int ui);
+        DataBuffer& operator <<(const unsigned int& ui);
 
         /**
          * Writes a unsigned long long to the buffer
-         * @param ul the unsigned long long to write
+         * @param ull the unsigned long long to write
+         * @return a reference to the DataBuffer
          */
-        void write(unsigned long long ul);
+        DataBuffer& operator <<(const unsigned long long& ull);
 
         /**
          * Writes a std::string to the buffer
          * @param s the string to write
+         * @return a reference to the DataBuffer
          */
-        void write(std::string s);
+        DataBuffer& operator <<(const std::string& s);
 
         /**
          * Writes a float to the buffer
          * @param f the float to write
+         * @return a reference to the DataBuffer
          */
-        void write(float f);
+        DataBuffer& operator <<(const float& f);
 
         /**
          * Writes a double to the buffer
          * @param d the double to write
+         * @return a reference to the DataBuffer
          */
-        void write(double d);
+        DataBuffer& operator <<(const double& d);
 
     private:
 

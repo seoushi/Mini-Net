@@ -5,6 +5,7 @@
   <confs>
     <conf name="Linux-Debug" type="1">
       <gizmo_options version="3">
+        <profileOnRun>false</profileOnRun>
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
@@ -20,6 +21,7 @@
     </conf>
     <conf name="Linux-Release" type="1">
       <gizmo_options version="3">
+        <profileOnRun>false</profileOnRun>
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
@@ -35,6 +37,7 @@
     </conf>
     <conf name="Win-Debug" type="1">
       <gizmo_options version="3">
+        <profileOnRun>false</profileOnRun>
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
@@ -50,6 +53,7 @@
     </conf>
     <conf name="Win-Release" type="1">
       <gizmo_options version="3">
+        <profileOnRun>false</profileOnRun>
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">

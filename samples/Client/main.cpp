@@ -30,23 +30,33 @@ int main(int argc, char** argv)
         // get user message
         std::cin >> input;
 
+        if(!con.isConnected())
+        {
+            std::cout << "disconnected from server: exiting" << std::endl;
+        }
+
         // send user message
         DataBuffer buffer;
         Message outMsg;
 
-        buffer.write(input);
+        buffer << input;
         outMsg.setData(buffer);
-        outMsg.write(&con);
+        con << outMsg;
 
         // get server response
         Message inMsg;
         
-        while(!inMsg.isComplete())
+        for(;;)
         {
-            inMsg.read(&con);
+            if(con >> inMsg)
+            {
+                break;
+            }
         }
 
-        std::cout << "got reply: " << inMsg.getData()->readString() << std::endl;
+        std::string reply;
+        inMsg.data() >> reply;
+        std::cout << "got reply: " << reply << std::endl;
     }
         
 

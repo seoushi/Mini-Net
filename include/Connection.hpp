@@ -80,6 +80,12 @@ class Connection
         Connection* accept();
 
         /**
+         * returns if the connection is listening or connected to a server
+         * @return true if connected otherwise false
+         */
+        bool isConnected();
+
+        /**
          * Connects to a remote server
          * @param address the address of the server
          * @param port the port of the server
@@ -145,13 +151,13 @@ class Connection
          * Gets the address of the connection
          * @return the address of the connection
          */
-        std::string getAddress();
+        std::string address();
 
         /**
          * Gets the port of the connection
          * @return the port of the connection
          */
-        int getPort();
+        int port();
 
         /**
          * Is the connection over IPv6?
@@ -172,13 +178,14 @@ class Connection
          */
         void getSocketInfo(sockaddr* sa);
 
-        int port;                   /**< The Port of the connection           */
+        int conPort;                /**< The Port of the connection           */
         int numBacklogConnections;  /**< In a server the number of connections
                                      that can be waiting for an accept        */
         int sockfd;                 /**< The connection's socket              */
 	bool isAServer;             /**< Is the connection a server?          */
         bool isIpv4;                /**< Is the connection IPv4?              */
-        std::string address;        /**< The address of the connection        */
+        std::string conAddress;     /**< The address of the connection        */
+        bool conIsConnected;        /**< If the connection is connected       */
 };
 
 #endif	/* CONNECTION_H */

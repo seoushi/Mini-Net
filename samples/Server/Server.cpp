@@ -37,16 +37,18 @@ Server::Server(int port)
     this->port = port;
 }
 
+
 Server::~Server()
 {
 
 }
 
+
 bool Server::start()
 {
     if(con.listen(7777))
     {
-        std::cout << "Server is now listening on port: " << con.getAddress() << " : " << con.getPort();
+        std::cout << "Server is now listening on port: " << con.address() << " : " << con.port();
 
         if(con.isIpv6())
         {
@@ -67,6 +69,7 @@ bool Server::start()
     return false;
 }
 
+
 void Server::update()
 {
     Connection* conPtr;
@@ -83,6 +86,12 @@ void Server::update()
         }
         else
         {
+            // are they connected
+            if(conPtr->isConnected())
+            {
+                onDisconnect(conPtr);
+            }
+
             // see if the connection has an existing message
             std::map<Connection*, Message*>::iterator itr = msgBox.find(conPtr);
 
@@ -99,45 +108,43 @@ void Server::update()
             }
 
 
-            // read message data.
-            int bytesRead = msg->read(conPtr);
-            
-            //if we read no data they have been disconnected
-            if(!bytesRead)
-            {
-                onDisconnect(conPtr);
-            }
-
-
-            // if the message has been fully received
-            if(msg->isComplete())
+            // read message data and see if it's done
+            if((*conPtr) >> (*msg))
             {
                 onMessage(conPtr, msg);
                 msgBox[conPtr] = NULL;
             }
 
+            // are they still connected?
+            if(conPtr->isConnected())
+            {
+                onDisconnect(conPtr);
+            }
         }
     }
 }
 
+
 void Server::onMessage(Connection* c, Message* msg)
 {
-    std::cout << "got Message from: " << c->getAddress() << " : " << c->getPort() << " with length of " << msg->getLength() << std::endl;
+    std::cout << "got Message from: " << c->address() << " : " << c->port() << " with length of " << msg->length() << std::endl;
 
     //echo it back
-    msg->write(c);
+    (*c) << (*msg);
 
     delete msg;
 }
 
+
 void Server::onConnect(Connection* c)
 {
-    std::cout << "got connection from: " << c->getAddress() << " : " << c->getPort() << std::endl;
+    std::cout << "got connection from: " << c->address() << " : " << c->port() << std::endl;
 }
+
 
 void Server::onDisconnect(Connection* c)
 {
-    std::cout << "disconnection from: " << c->getAddress() << " : " << c->getPort() << std::endl;
+    std::cout << "disconnection from: " << c->address() << " : " << c->port() << std::endl;
 
     
     // clean up the message box

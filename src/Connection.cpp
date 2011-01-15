@@ -55,12 +55,13 @@ int listen2(int sock, int numBacklogConnections);
 
 Connection::Connection()
 {
-    port = 0;
+    conPort = 0;
     numBacklogConnections = 10;
     sockfd = NULL;
     isAServer = false;
     isIpv4 = true;
-    address = "";
+    conAddress = "";
+    conIsConnected = false;
 }
 
 Connection::Connection(int sockfd, sockaddr* sa)
@@ -69,6 +70,7 @@ Connection::Connection(int sockfd, sockaddr* sa)
     this->sockfd = sockfd;
     isAServer = false;
     getSocketInfo(sa);
+    conIsConnected = true;
 }
 
 Connection::~Connection()
@@ -146,9 +148,10 @@ bool Connection::listen(int port)
         return false;
     }
 
-    this->address = "localhost";
-    this->port = port;
+    conAddress = "localhost";
+    conPort = port;
     isAServer = true;
+    conIsConnected = true;
 
     return true;
 }
@@ -168,6 +171,12 @@ Connection* Connection::accept()
     }
 
     return new Connection(new_socketfd, (sockaddr*)&theirAddr);
+}
+
+
+bool Connection::isConnected()
+{
+    return conIsConnected;
 }
 
 
@@ -225,7 +234,8 @@ bool Connection::connect(const char* address, int port)
 
     
     // success!
-    this->port = port;
+    conPort = port;
+    conIsConnected = true;
     return true;
 }
 
@@ -236,6 +246,7 @@ int Connection::read(char* buffer, int bufferSize)
 
     if(bytesRead == -1)
     {
+        conIsConnected = false;
         perror("read error");
         return 0;
     }
@@ -296,6 +307,7 @@ bool Connection::write(const char* data, int length)
         n = send(sockfd, data + sent, bytesLeft, 0);
         if(n == -1)
         {
+            conIsConnected = false;
             perror("write error");
             return false;
         }
@@ -331,14 +343,14 @@ bool Connection::isServer()
 }
 
 
-std::string Connection::getAddress()
+std::string Connection::address()
 {
-    return address;
+    return conAddress;
 }
 
-int Connection::getPort()
+int Connection::port()
 {
-    return port;
+    return conPort;
 }
 
 bool Connection::isIpv6()
@@ -367,18 +379,18 @@ void Connection::getSocketInfo(sockaddr* sa)
     {
         isIpv4 = true;
         sa_in = &((sockaddr_in*)sa)->sin_addr;
-        port = ((sockaddr_in*)sa)->sin_port;
+        conPort = ((sockaddr_in*)sa)->sin_port;
     }
     else
     {
         isIpv4 = false;
         sa_in = &((sockaddr_in6*)sa)->sin6_addr;
-        port = ((sockaddr_in6*)sa)->sin6_port;
+        conPort = ((sockaddr_in6*)sa)->sin6_port;
     }
 
     inet_ntop(sa->sa_family, sa_in, str, sizeof str);
 
-    address = std::string(str);
+    conAddress = std::string(str);
 }
 
 int accept2(int sock, sockaddr* sockAddr, socklen_t sockLength)

@@ -293,7 +293,7 @@ void DataBuffer::write(char* dataP, size_t length)
         resize(maxBufferSize - spaceLeft() + length);
     }
 
-    memcpy(data(), dataP, length);
+    memcpy(buffer + bufferPosition, dataP, length);
     bufferSize += length;
 
     seek(length);

@@ -36,6 +36,9 @@ class ConnectionPool;
 #include <string>
 #include <netdb.h>
 
+#include "DataBuffer.hpp"
+#include "Message.hpp"
+
 /**
  * The Connection class abstracts out the low level implementation for TCP/IP
  * sockets. Creates/connects to servers, reads/writes data.
@@ -92,6 +95,23 @@ class Connection
          */
         int read(char* buffer, int bufferSize);
 
+
+        /**
+         * reads data into a data buffer from it's current position and
+         * filling up to it's allocated size
+         * @param buffer the buffer to read into
+         * @return the number of bytes read
+         */
+        int operator >>(DataBuffer& buffer);
+
+        /**
+         * reads data into a Message
+         * @param msg the message to read into
+         * @return if the message is done reading
+         */
+        bool operator >>(Message& msg);
+
+
         /**
          * Writes the data to the connection
          * @param data the data to write
@@ -99,6 +119,21 @@ class Connection
          * @return true if write succeeded otherwise false
          */
         bool write(const char* data, int length);
+
+        /**
+         * writes data from begining of the buffer into the connection up to
+         * it's size
+         * @param buffer the buffer to write to
+         * @return a reference to the connection
+         */
+        Connection& operator <<(DataBuffer& buffer);
+
+        /**
+         * writes the message to the connection
+         * @param msg the message to write to the buffer
+         * @return a reference to the connection
+         */
+        Connection& operator <<(Message& msg);
 
         /**
          * Is the connection a server?

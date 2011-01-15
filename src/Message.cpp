@@ -33,8 +33,8 @@
 
 Message::Message()
 {
-    length = 0;
-    hasReadLength = false;
+    msgLength = 0;
+    msgHasReadLength = false;
     bytesLeft = sizeof(unsigned short);
     buffer.resize(bytesLeft);
 }
@@ -45,62 +45,10 @@ Message::~Message()
 }
 
 
-int Message::read(Connection* con)
-{
-    int bytesRead = 0;
-
-    // don't read if we don't need to
-    if(!bytesLeft)
-    {
-        return 0;
-    }
-
-    // find the read offset
-    int offset = length - bytesLeft;
-
-    if(offset < 0)
-    {
-        offset = 0;
-    }
-
-
-    // try to read as much as we need from the connection
-    bytesRead = con->read((char*)buffer.data() + offset, bytesLeft);
-    bytesLeft -= bytesRead;
-
-
-    // we haven't read the length yet and are done reading the length
-    if(!hasReadLength && !bytesLeft)
-    {
-        buffer >> length;
-        bytesLeft = length;
-
-        buffer.resize(length);
-        buffer.rewind();
-
-        hasReadLength = true;
-    }
-
-    if(!bytesLeft)
-    {
-        buffer.rewind();
-    }
-
-    return bytesRead;
-}
-
-
-void Message::write(Connection* con)
-{
-    con->write((char*)&length, sizeof(length));
-    con->write((char*)buffer.data(), buffer.size());
-}
-
- 
 bool Message::isComplete()
 {
     // if the length hasn't been read or the buffer has some reading to do
-    if(!hasReadLength || bytesLeft)
+    if(!msgHasReadLength || bytesLeft)
     {
         return false;
     }
@@ -114,17 +62,44 @@ void Message::setData(DataBuffer buffer)
     buffer.rewind();
     this->buffer = buffer;
 
-    length = buffer.size();
+    msgLength = buffer.size();
 }
 
 
-DataBuffer* Message::getData()
+DataBuffer& Message::data()
 {
-    return &buffer;
+    return buffer;
 }
 
 
-size_t Message::getLength()
+unsigned short Message::length()
 {
-    return (size_t)length;
+    if(!msgHasReadLength)
+    {
+        return 0;
+    }
+    
+    return msgLength;
+}
+
+
+void Message::setLength(unsigned short length)
+{
+    buffer.clear();
+    buffer.resize(length);
+    bytesLeft = msgLength = length;
+
+    msgHasReadLength = true;
+}
+
+
+bool Message::hasReadLength()
+{
+    return msgHasReadLength;
+}
+
+
+unsigned short Message::bytesLeftToRead()
+{
+    return bytesLeft;
 }

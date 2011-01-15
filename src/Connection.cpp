@@ -244,6 +244,47 @@ int Connection::read(char* buffer, int bufferSize)
 }
 
 
+int Connection::operator >>(DataBuffer& buffer)
+{
+    return read(buffer.data() + buffer.position(),
+            buffer.allocatedSize() - buffer.position());
+}
+
+
+bool Connection::operator >>(Message& msg)
+{
+    // don't read if we don't have to
+    if(msg.isComplete())
+    {
+        return true;
+    }
+
+    // read into the buffer
+    DataBuffer buffer = msg.data();
+    int bytesRead = (*this) >> buffer;
+
+    // they have been disconnected, don't carry on
+    if(!bytesRead)
+    {
+        return false;
+    }
+
+    // if the message hasn't read it's length
+    if(!msg.hasReadLength())
+    {
+        unsigned int newLength;
+        buffer >> newLength;
+
+        msg.setLength(newLength);
+
+        return false;
+    }
+
+    //are we done reading the message?
+    return msg.isComplete();
+}
+
+
 bool Connection::write(const char* data, int length)
 {
     int sent = 0;
@@ -264,6 +305,23 @@ bool Connection::write(const char* data, int length)
     }
 
     return true;
+}
+
+
+Connection& Connection::operator <<(DataBuffer& buffer)
+{
+    write(buffer.data(), buffer.size());
+    return *this;
+}
+
+
+Connection& Connection::operator <<(Message& msg)
+{
+    unsigned short len = msg.length();
+
+    write((char*)&len, sizeof(unsigned short));
+    (*this) << msg.data();
+    return *this;
 }
 
 

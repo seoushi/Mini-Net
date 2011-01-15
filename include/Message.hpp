@@ -29,7 +29,6 @@
  */
 
 #include "DataBuffer.hpp"
-#include "Connection.hpp"
 
 #ifndef MESSAGE_H
 #define	MESSAGE_H
@@ -55,19 +54,6 @@ class Message
         ~Message();
 
         /**
-         * Reads data from a connection
-         * @param con the connection to read data from
-         * @return the number of bytes read
-         */
-        int read(Connection* con);
-
-        /**
-         * Writes data to a connection
-         * @param con the connection to write data to
-         */
-        void write(Connection* con);
-
-        /**
          * Tells if the message has read all of the data needed
          * @return true if the message message has its data otherwise false
          */
@@ -84,19 +70,38 @@ class Message
          * Gets the data from the buffer
          * @return the buffer's data
          */
-        DataBuffer* getData();
+        DataBuffer& data();
 
         /**
          * Gets the length of the message
          * @return the message length
          */
-        size_t getLength();
+        unsigned short length();
+
+        /**
+         * prepares a message of the given length. Previous data will be lost
+         * @param the new length of the message
+         */
+         void setLength(unsigned short length);
+
+         /**
+         * if the message has read it's length yet or not
+         * @return true if the message has read it's length
+         */
+        bool hasReadLength();
+
+
+        /**
+         * gets the bytes left to read for the message
+         * @return the bytes left to read in the buffer
+         */
+        unsigned short bytesLeftToRead();
 
     private:
 
-        bool hasReadLength;         /**< If the msg length has been determined*/
+        bool msgHasReadLength;         /**< If the msg length has been determined*/
         unsigned short bytesLeft;   /**< The bytes left to read               */
-        unsigned short length;      /**< The length of the message to read    */
+        unsigned short msgLength;   /**< The length of the message to read    */
         DataBuffer buffer;          /**< The databuffer to store the data     */
 };
 

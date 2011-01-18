@@ -146,6 +146,15 @@ size_t DataBuffer::size()
 }
 
 
+void DataBuffer::setSize(size_t size)
+{
+    if(size <= maxBufferSize)
+    {
+        bufferSize = size;
+    }
+}
+
+
 size_t DataBuffer::allocatedSize()
 {
     return maxBufferSize;
@@ -263,7 +272,7 @@ DataBuffer& DataBuffer::operator >>(std::string& val)
 
     for(;;)
     {
-        *this >> c;
+        (*this) >> c;
 
         if(c == 0)
         {
@@ -275,7 +284,15 @@ DataBuffer& DataBuffer::operator >>(std::string& val)
         }
     }
 
-    val = ss.str();
+    if(ss.str().length() <= 0)
+    {
+        val = std::string("INVALID STRING");
+    }
+    else
+    {
+        val = ss.str();
+    }
+    
     return *this;
 }
 

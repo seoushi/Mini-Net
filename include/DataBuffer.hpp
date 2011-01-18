@@ -105,6 +105,12 @@ class DataBuffer
         size_t size();
 
         /**
+         * Sets the size of the data buffer currently in use
+         * @param size the new size
+         */
+        void setSize(size_t size);
+
+        /**
          * Gets the max size the data buffer can hold
          * @return the buffer's max size
          */
@@ -230,7 +236,6 @@ class DataBuffer
          * @param length the length of the data to write
          */
         void write(char* data, size_t length);
-
 
         /**
          * Writes a short to the buffer

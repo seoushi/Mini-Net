@@ -257,8 +257,13 @@ int Connection::read(char* buffer, int bufferSize)
 
 int Connection::operator >>(DataBuffer& buffer)
 {
-    return read(buffer.data() + buffer.position(),
+    int bytesRead = read(buffer.data() + buffer.position(),
             buffer.allocatedSize() - buffer.position());
+
+    //tell databuffer we can use those read bytes
+    buffer.setSize(buffer.size() + bytesRead);
+
+    return bytesRead;
 }
 
 
@@ -271,19 +276,20 @@ bool Connection::operator >>(Message& msg)
     }
 
     // read into the buffer
-    DataBuffer buffer = msg.data();
+    DataBuffer& buffer = msg.data();
     int bytesRead = (*this) >> buffer;
 
     // they have been disconnected, don't carry on
     if(!bytesRead)
     {
+        conIsConnected = false;
         return false;
     }
 
     // if the message hasn't read it's length
     if(!msg.hasReadLength())
     {
-        unsigned int newLength;
+        unsigned short newLength;
         buffer >> newLength;
 
         msg.setLength(newLength);

@@ -11,17 +11,9 @@ Current Features
     Sample server/client project
     Messages for combining data buffers and connections
     Fully documented via Doxygen
-    Bugs
-    
-Planned Stuff
-    Fix bugs
-    add server/client templates in the main library with Delegates for events
-    clean up code
     
     
     
-    
-    
-License for this code is BSD. 
+License for this code is BSD (see license file for more information).
 
 If you use it for something or find it useful I'd be interested to know.

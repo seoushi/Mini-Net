@@ -87,7 +87,7 @@ void Server::update()
         else
         {
             // are they connected
-            if(conPtr->isConnected())
+            if(!conPtr->isConnected())
             {
                 onDisconnect(conPtr);
             }
@@ -116,7 +116,7 @@ void Server::update()
             }
 
             // are they still connected?
-            if(conPtr->isConnected())
+            if(!conPtr->isConnected())
             {
                 onDisconnect(conPtr);
             }

@@ -100,7 +100,6 @@ class Message
     private:
 
         bool msgHasReadLength;         /**< If the msg length has been determined*/
-        unsigned short bytesLeft;   /**< The bytes left to read               */
         unsigned short msgLength;   /**< The length of the message to read    */
         DataBuffer buffer;          /**< The databuffer to store the data     */
 };

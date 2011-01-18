@@ -24,11 +24,17 @@ int main(int argc, char** argv)
 
     std::string input;
 
-    while(input != "quit!")
+    for(;;)
     {
 
         // get user message
-        std::cin >> input;
+        std::getline(std::cin, input);
+
+        if(input == "quit!")
+        {
+            break;
+        }
+
 
         if(!con.isConnected())
         {

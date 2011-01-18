@@ -35,8 +35,7 @@ Message::Message()
 {
     msgLength = 0;
     msgHasReadLength = false;
-    bytesLeft = sizeof(unsigned short);
-    buffer.resize(bytesLeft);
+    buffer.resize(sizeof(unsigned short));
 }
 
 
@@ -48,7 +47,7 @@ Message::~Message()
 bool Message::isComplete()
 {
     // if the length hasn't been read or the buffer has some reading to do
-    if(!msgHasReadLength || bytesLeft)
+    if(!msgHasReadLength || bytesLeftToRead())
     {
         return false;
     }
@@ -57,11 +56,16 @@ bool Message::isComplete()
 }
 
 
-void Message::setData(DataBuffer buffer)
+void Message::setData(DataBuffer db)
 {
-    buffer.rewind();
-    this->buffer = buffer;
+    //kill the previous buffer
+    buffer.clear();
+    buffer.resize(db.size());
 
+    //copy the data buffer
+    buffer.write(db.data(), db.size());
+
+    msgHasReadLength = true;
     msgLength = buffer.size();
 }
 
@@ -87,7 +91,7 @@ void Message::setLength(unsigned short length)
 {
     buffer.clear();
     buffer.resize(length);
-    bytesLeft = msgLength = length;
+    msgLength = length;
 
     msgHasReadLength = true;
 }
@@ -101,5 +105,5 @@ bool Message::hasReadLength()
 
 unsigned short Message::bytesLeftToRead()
 {
-    return bytesLeft;
+    return buffer.size() < msgLength;
 }
